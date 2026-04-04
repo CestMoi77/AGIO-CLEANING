@@ -1,5 +1,5 @@
 /**
- * Agion Cleaning – Lichte JavaScript
+ * Agio Cleaning – Lichte JavaScript
  * Verantwoordelijk voor:
  *  - Mobiel navigatiemenu (hamburger)
  *  - Schaduw op header bij scrollen

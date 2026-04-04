@@ -1,31 +1,30 @@
-# Agion Cleaning Website
+# Agio Cleaning Website
 
-Volledige bedrijfswebsite voor Agion Cleaning — een Nederlands schoonmaakbedrijf
+Volledige bedrijfswebsite voor Agio Cleaning — een Nederlands schoonmaakbedrijf
 gespecialiseerd in matrasreiniging, meubelreiniging en vloerreiniging.
 
 ## Tech Stack
 
 - **Frontend:** HTML5 + moderne CSS3 + lichte vanilla JavaScript
-- **Backend (contactformulier):** PHP 8.2 mail() of PHPMailer (SMTP)
+- **Backend (contactformulier):** PHP 8.2 mail()
 - **Server (lokaal/Replit):** PHP 8.2 built-in server (`php -S 0.0.0.0:5000 -t .`)
 - **Hosting:** Geschikt voor standaard webhosting (STRATO, TransIP, etc.)
-- **Editor:** Bewerkbaar in Microsoft Visual Studio 2022
 
 ## Bestandsstructuur
 
 ```
-agion-cleaning/
+agio-cleaning/
 ├── index.html                   Homepagina
 ├── diensten.html                Dienstenpagina (matras, meubel, vloer)
 ├── particulier.html             Pagina voor particulieren
 ├── zakelijk.html                Pagina voor zakelijke klanten
-├── contact.html                 Contactpagina met formulier
+├── contact.html                 Contactpagina met formulier + honeypot
 ├── professionele-reiniging.html SEO-pagina met uitgebreide FAQ
 ├── bedankt.html                 Bedanktpagina na formulierverzending
 ├── 404.html                     Pagina niet gevonden
-├── contact.php                  PHP-handler voor contactformulier
+├── contact.php                  PHP-handler voor contactformulier (honeypot, whitelist, error handling)
 ├── css/
-│   └── style.css               Alle stijlen (CSS-variabelen, responsive, componenten)
+│   └── style.css               Alle stijlen (CSS-variabelen, responsive, componenten, focus-visible, reduced-motion)
 └── js/
     └── main.js                 Lichte JavaScript (menu, FAQ, validatie)
 ```
@@ -45,15 +44,15 @@ Zoek in **alle HTML-bestanden** naar de volgende teksten en vervang ze:
 | `VERVANGTELEFOON`       | bijv. `31612345678`                    | Telefoonnummer (zonder + of 0)    |
 | `VERVANG NUMMER`        | bijv. `06 12 34 56 78`                 | Leesbaar telefoonnummer           |
 | `VERVANGWANUMMER`       | bijv. `31612345678`                    | WhatsApp-nummer (zonder + of 0)   |
-| `info@agioncleaning.nl` | uw eigen e-mailadres                   | Weergegeven e-mailadres           |
+| `info@agiocleaning.nl`  | uw eigen e-mailadres                   | Weergegeven e-mailadres           |
 
 ### contact.php aanpassen
 
 Open `contact.php` en pas aan:
 ```php
-$ontvangerEmail  = 'info@agioncleaning.nl';   // ← uw e-mailadres
-$ontvangerNaam   = 'Agion Cleaning';           // ← uw bedrijfsnaam
-$afzenderDomain  = 'agioncleaning.nl';         // ← uw domeinnaam
+$ontvangerEmail  = 'info@agiocleaning.nl';   // ← uw e-mailadres
+$ontvangerNaam   = 'Agio Cleaning';           // ← uw bedrijfsnaam
+$afzenderDomain  = 'agiocleaning.nl';         // ← uw domeinnaam
 ```
 
 ### Logo vervangen
@@ -65,7 +64,7 @@ In de header van elk HTML-bestand staat:
 ```
 Vervang dit met:
 ```html
-<img src="img/logo.png" alt="Agion Cleaning" width="140" height="40">
+<img src="img/logo.png" alt="Agio Cleaning" width="140" height="40">
 ```
 
 ### Google Maps toevoegen
@@ -91,6 +90,29 @@ Pas de huisstijlkleuren aan in `css/style.css` onder `:root`:
 In de footer van alle pagina's staat `href="#"` voor Facebook, Instagram en LinkedIn.
 Vervang `#` door uw echte social media URL's.
 
+### Klantreviews toevoegen
+
+Op `index.html` en `particulier.html` staan placeholders (HTML-comments `<!-- AANPASSEN: ... -->`)
+waar u echte klantreviews kunt toevoegen zodra deze beschikbaar zijn.
+
+## Canonical tags
+
+Alle 6 indexeerbare pagina's bevatten `<link rel="canonical">` tags gericht op `https://www.agiocleaning.nl/`.
+Pas het domein aan als u een ander domein gebruikt.
+
+## Beveiliging contactformulier
+
+- Honeypot-veld (`website_url`) in `contact.html` ter bescherming tegen bots
+- Server-side whitelist-validatie voor `klanttype` en `dienst` in `contact.php`
+- Foutmelding bij mislukte `mail()` met redirect naar `contact.html?error=...`
+
+## Toegankelijkheid
+
+- `:focus-visible` styling op alle interactieve elementen
+- `prefers-reduced-motion` media query schakelt animaties uit
+- `aria-label` en `aria-hidden` attributen op decoratieve elementen
+- Semantische HTML5-structuur
+
 ## Exporteren naar STRATO
 
 Upload de volgende bestanden en mappen via FTP:
@@ -108,8 +130,6 @@ Upload de volgende bestanden en mappen via FTP:
 - `img/` (map, indien aangemaakt)
 
 **Let op STRATO:** De PHP mail()-functie is standaard beschikbaar op STRATO-hostingpakketten.
-Als e-mails niet aankomen, controleer dan uw spammap of configureer PHPMailer via SMTP
-(zie de instructies onderaan `contact.php`).
 
 ## Pagina's & navigatie
 

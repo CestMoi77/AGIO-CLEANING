@@ -1,43 +1,18 @@
 <?php
 /**
- * Agion Cleaning – Contactformulier Handler
- * ==========================================
- * Dit bestand verwerkt het contactformulier en verstuurt e-mailmeldingen.
- *
- * CONFIGURATIE (pas onderstaande regels aan):
- *   $ontvangerEmail  – het e-mailadres waarop u meldingen wilt ontvangen
- *   $afzenderDomain  – het domein van uw website (voor de From-header)
- *
- * HOSTING OP STRATO / STANDAARD HOSTING:
- *   De PHP mail()-functie werkt op de meeste webhostingpakketten.
- *   Als e-mails niet aankomen, controleer dan de spammap of gebruik
- *   een SMTP-plugin zoals PHPMailer (zie onderaan voor instructies).
- *
- * BEVEILIGING:
- *   - Alle invoer wordt gesaniteerd met htmlspecialchars()
- *   - E-mailadressen worden gevalideerd met filter_var()
- *   - Header-injectie wordt voorkomen
+ * Agio Cleaning – Contactformulier Handler
  */
 
-/* ───────────────────────────────────────────────
-   AANPASSEN: Vul uw eigen e-mailadres in
-─────────────────────────────────────────────── */
-$ontvangerEmail  = 'info@agioncleaning.nl';   // E-mailadres van de ontvanger
-$ontvangerNaam   = 'Agion Cleaning';           // Naam van de ontvanger
-$afzenderDomain  = 'agioncleaning.nl';         // Domein (voor From-header)
-$websiteNaam     = 'Agion Cleaning';
+$ontvangerEmail  = 'info@agiocleaning.nl';
+$ontvangerNaam   = 'Agio Cleaning';
+$afzenderDomain  = 'agiocleaning.nl';
+$websiteNaam     = 'Agio Cleaning';
 
-/* ───────────────────────────────────────────────
-   ALLEEN POST VERWERKEN
-─────────────────────────────────────────────── */
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: contact.html');
     exit;
 }
 
-/* ───────────────────────────────────────────────
-   INVOER OPHALEN & SANITEREN
-─────────────────────────────────────────────── */
 function sanitize($input) {
     return htmlspecialchars(strip_tags(trim($input ?? '')), ENT_QUOTES, 'UTF-8');
 }
@@ -48,22 +23,42 @@ $telefoon  = sanitize($_POST['telefoon']  ?? '');
 $klanttype = sanitize($_POST['klanttype'] ?? '');
 $dienst    = sanitize($_POST['dienst']    ?? '');
 $bericht   = sanitize($_POST['bericht']   ?? '');
+$honeypot  = trim($_POST['website_url']   ?? '');
 
-/* ───────────────────────────────────────────────
-   VALIDATIE
-─────────────────────────────────────────────── */
 $fouten = [];
 
-if (empty($naam))    $fouten[] = 'Naam is verplicht.';
-if (empty($email))   $fouten[] = 'E-mailadres is verplicht.';
-if (empty($dienst))  $fouten[] = 'Selecteer een dienst.';
-if (empty($bericht)) $fouten[] = 'Bericht is verplicht.';
+if (!empty($honeypot)) {
+    header('Location: bedankt.html');
+    exit;
+}
+
+if (empty($naam))      $fouten[] = 'Naam is verplicht.';
+if (empty($email))     $fouten[] = 'E-mailadres is verplicht.';
+if (empty($klanttype)) $fouten[] = 'Selecteer een type klant.';
+if (empty($dienst))    $fouten[] = 'Selecteer een dienst.';
+if (empty($bericht))   $fouten[] = 'Bericht is verplicht.';
 
 if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $fouten[] = 'Voer een geldig e-mailadres in.';
 }
 
-// Header-injectie voorkomen
+$toegestaneKlanttypen = ['Particulier', 'Zakelijk'];
+if (!empty($klanttype) && !in_array($klanttype, $toegestaneKlanttypen, true)) {
+    $fouten[] = 'Ongeldig type klant geselecteerd.';
+}
+
+$toegestaneDiensten = [
+    'Matrasreiniging',
+    'Meubelreiniging (bank, stoelen)',
+    'Vloerreiniging (tapijt, tegels)',
+    'Combinatie van diensten',
+    'Periodiek reinigingscontract (zakelijk)',
+    'Andere vraag'
+];
+if (!empty($dienst) && !in_array($dienst, $toegestaneDiensten, true)) {
+    $fouten[] = 'Ongeldige dienst geselecteerd.';
+}
+
 $verbodenePatronen = ["\r", "\n", "%0a", "%0d", "Content-Type:", "Bcc:", "Cc:"];
 foreach ([$naam, $email, $telefoon, $klanttype, $dienst] as $veld) {
     foreach ($verbodenePatronen as $patroon) {
@@ -74,21 +69,15 @@ foreach ([$naam, $email, $telefoon, $klanttype, $dienst] as $veld) {
     }
 }
 
-/* ───────────────────────────────────────────────
-   BIJ FOUTEN: TERUG NAAR FORMULIER
-─────────────────────────────────────────────── */
 if (!empty($fouten)) {
     $foutString = urlencode(implode(' ', $fouten));
     header('Location: contact.html?fout=' . $foutString);
     exit;
 }
 
-/* ───────────────────────────────────────────────
-   E-MAIL NAAR EIGENAAR AGION CLEANING
-─────────────────────────────────────────────── */
 $onderwerpEigenaar = "Nieuw contactverzoek van {$naam} \u{2013} {$dienst}";
 
-$berichtEigenaar  = "Nieuw bericht via het contactformulier op de Agion Cleaning website.\n\n";
+$berichtEigenaar  = "Nieuw bericht via het contactformulier op de Agio Cleaning website.\n\n";
 $berichtEigenaar .= "-------------------------------------------\n";
 $berichtEigenaar .= "Naam:        {$naam}\n";
 $berichtEigenaar .= "E-mail:      {$email}\n";
@@ -106,11 +95,14 @@ $headersEigenaar .= "MIME-Version: 1.0\r\n";
 $headersEigenaar .= "Content-Type: text/plain; charset=UTF-8\r\n";
 $headersEigenaar .= "X-Mailer: PHP/" . phpversion() . "\r\n";
 
-mail($ontvangerEmail, $onderwerpEigenaar, $berichtEigenaar, $headersEigenaar);
+$mailVerzonden = @mail($ontvangerEmail, $onderwerpEigenaar, $berichtEigenaar, $headersEigenaar);
 
-/* ───────────────────────────────────────────────
-   BEVESTIGINGSMAIL NAAR KLANT
-─────────────────────────────────────────────── */
+if (!$mailVerzonden) {
+    $foutString = urlencode('Er is een technisch probleem opgetreden bij het versturen van uw bericht. Probeer het later opnieuw of neem telefonisch contact op.');
+    header('Location: contact.html?fout=' . $foutString);
+    exit;
+}
+
 $onderwerpKlant = "Bedankt voor uw bericht \u{2013} {$websiteNaam}";
 
 $berichtKlant  = "Beste {$naam},\n\n";
@@ -122,7 +114,6 @@ $berichtKlant .= "  Dienst:     {$dienst}\n";
 $berichtKlant .= "  Type klant: {$klanttype}\n\n";
 $berichtKlant .= "Uw bericht:\n{$bericht}\n";
 $berichtKlant .= "-------------------------------------------\n\n";
-// AANPASSEN: Pas telefoonnummer en e-mailadres aan
 $berichtKlant .= "Met vriendelijke groet,\n{$ontvangerNaam}\n\n";
 $berichtKlant .= "\u{260E} +31 (0)6 \u{2013} VERVANG NUMMER\n";
 $berichtKlant .= "\u{2709} {$ontvangerEmail}\n";
@@ -132,40 +123,8 @@ $headersKlant .= "Reply-To: {$ontvangerNaam} <{$ontvangerEmail}>\r\n";
 $headersKlant .= "MIME-Version: 1.0\r\n";
 $headersKlant .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
-mail($email, $onderwerpKlant, $berichtKlant, $headersKlant);
+@mail($email, $onderwerpKlant, $berichtKlant, $headersKlant);
 
-/* ───────────────────────────────────────────────
-   DOORSTUREN NAAR BEDANKPAGINA
-─────────────────────────────────────────────── */
 header('Location: bedankt.html');
 exit;
-
-/*
- ─────────────────────────────────────────────────
- OPTIONEEL: SMTP MET PHPMAILER (voor betere bezorging)
- ─────────────────────────────────────────────────
- Als de standaard mail()-functie niet goed werkt,
- kunt u PHPMailer gebruiken via Composer:
-
-   composer require phpmailer/phpmailer
-
- Vervang dan de mail()-aanroepen hierboven met:
-
-   use PHPMailer\PHPMailer\PHPMailer;
-   $mail = new PHPMailer(true);
-   $mail->isSMTP();
-   $mail->Host       = 'smtp.uw-aanbieder.nl';   // SMTP_HOST
-   $mail->SMTPAuth   = true;
-   $mail->Username   = 'uw@email.nl';             // SMTP_USER
-   $mail->Password   = 'uwwachtwoord';            // SMTP_PASS
-   $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-   $mail->Port       = 587;                       // SMTP_PORT
-   $mail->CharSet    = 'UTF-8';
-   $mail->setFrom('no-reply@uw-domein.nl', 'Agion Cleaning');
-   $mail->addAddress($ontvangerEmail, $ontvangerNaam);
-   $mail->Subject = $onderwerpEigenaar;
-   $mail->Body    = $berichtEigenaar;
-   $mail->send();
- ─────────────────────────────────────────────────
-*/
 ?>

@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact – Agion Cleaning | Offerte aanvragen</title>
-    <meta name="description" content="Neem contact op met Agion Cleaning voor een vrijblijvende offerte. Wij reageren binnen 24 uur. Contactformulier, telefoon of WhatsApp.">
+    <title>Contact – Agio Cleaning | Offerte aanvragen</title>
+    <meta name="description" content="Neem contact op met Agio Cleaning voor een vrijblijvende offerte. Wij reageren binnen 24 uur. Contactformulier, telefoon of WhatsApp.">
     <meta name="robots" content="index, follow">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="canonical" href="https://www.agiocleaning.nl/contact.html">
 </head>
 <body>
 
@@ -25,7 +26,7 @@
     </div>
     <div class="main-nav">
         <div class="container nav-inner">
-            <a href="index.html" class="logo"><div class="logo-icon" aria-hidden="true">A</div><div class="logo-text"><span class="logo-name">Agion</span><span class="logo-sub">Cleaning</span></div></a>
+            <a href="index.html" class="logo"><div class="logo-icon" aria-hidden="true">A</div><div class="logo-text"><span class="logo-name">Agio</span><span class="logo-sub">Cleaning</span></div></a>
             <ul class="nav-links" role="list">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="diensten.html">Diensten</a></li>
@@ -62,7 +63,7 @@
     <div class="container">
 
         <!-- Foutmelding vanuit PHP (via URL parameter) – getoond door JavaScript -->
-        <div id="form-error" class="alert alert-error" style="max-width:900px;margin:0 auto 2rem;display:none;">
+        <div id="form-error" class="alert alert-error form-alert" style="display:none;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             <span id="form-error-text"></span>
         </div>
@@ -85,7 +86,7 @@
         <div class="contact-grid">
             <!-- Contactinformatie -->
             <div class="contact-info">
-                <h2>Agion Cleaning</h2>
+                <h2>Agio Cleaning</h2>
                 <p>Heeft u een vraag, wilt u een offerte of een afspraak plannen? Neem op een van onderstaande manieren contact met ons op. Wij streven ernaar om binnen 24 uur te reageren.</p>
 
                 <div class="contact-details">
@@ -107,7 +108,7 @@
                         </div>
                         <div>
                             <div class="contact-detail-label">E-mail</div>
-                            <a href="mailto:info@agioncleaning.nl" class="contact-detail-value">info@agioncleaning.nl</a>
+                            <a href="mailto:info@agiocleaning.nl" class="contact-detail-value">info@agiocleaning.nl</a>
                         </div>
                     </div>
 
@@ -129,7 +130,7 @@
                         </div>
                         <div>
                             <div class="contact-detail-label">Openingstijden</div>
-                            <div class="contact-detail-value" style="font-size:.875rem;line-height:1.7;">
+                            <div class="contact-detail-value contact-detail-hours">
                                 Ma–Vr: 08:00–18:00<br>
                                 Zaterdag: 09:00–14:00<br>
                                 Zondag: Op afspraak
@@ -167,7 +168,12 @@
                 <!-- Formulier verstuurt naar contact.php -->
                 <form id="contact-form" action="contact.php" method="POST" novalidate>
 
-                    <div class="form-row" style="margin-bottom:1.25rem;">
+                    <div class="hp-field" aria-hidden="true" tabindex="-1">
+                        <label for="website_url">Laat dit veld leeg</label>
+                        <input type="text" id="website_url" name="website_url" autocomplete="off" tabindex="-1">
+                    </div>
+
+                    <div class="form-row">
                         <div class="form-group">
                             <label for="naam">Naam <span class="required" aria-hidden="true">*</span></label>
                             <input type="text" id="naam" name="naam" required placeholder="Uw volledige naam" autocomplete="name">
@@ -178,7 +184,7 @@
                         </div>
                     </div>
 
-                    <div class="form-row" style="margin-bottom:1.25rem;">
+                    <div class="form-row">
                         <div class="form-group">
                             <label for="telefoon">Telefoonnummer</label>
                             <input type="tel" id="telefoon" name="telefoon" placeholder="+31 6 12345678" autocomplete="tel">
@@ -186,13 +192,14 @@
                         <div class="form-group">
                             <label for="klanttype">Type klant <span class="required" aria-hidden="true">*</span></label>
                             <select id="klanttype" name="klanttype" required>
+                                <option value="">Maak een keuze</option>
                                 <option value="Particulier">Particulier</option>
                                 <option value="Zakelijk">Zakelijk</option>
                             </select>
                         </div>
                     </div>
 
-                    <div class="form-group" style="margin-bottom:1.25rem;">
+                    <div class="form-group">
                         <label for="dienst">Gewenste dienst / onderwerp <span class="required" aria-hidden="true">*</span></label>
                         <select id="dienst" name="dienst" required>
                             <option value="">Selecteer een optie...</option>
@@ -205,7 +212,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group" style="margin-bottom:1.5rem;">
+                    <div class="form-group">
                         <label for="bericht">Bericht <span class="required" aria-hidden="true">*</span></label>
                         <textarea id="bericht" name="bericht" required placeholder="Omschrijf uw situatie of stel uw vraag. Hoe meer informatie u geeft, hoe beter wij u van dienst kunnen zijn."></textarea>
                     </div>
@@ -229,13 +236,13 @@
 <footer class="site-footer">
     <div class="footer-main">
         <div class="container footer-grid">
-            <div><a href="index.html" class="footer-logo"><div class="logo-icon" aria-hidden="true">A</div><div class="logo-text"><span class="logo-name">Agion</span><span class="logo-sub">Cleaning</span></div></a><p class="footer-desc">Professionele reiniging van matrassen, meubels en vloeren voor particulieren en bedrijven door heel Nederland.</p></div>
+            <div><a href="index.html" class="footer-logo"><div class="logo-icon" aria-hidden="true">A</div><div class="logo-text"><span class="logo-name">Agio</span><span class="logo-sub">Cleaning</span></div></a><p class="footer-desc">Professionele reiniging van matrassen, meubels en vloeren voor particulieren en bedrijven door heel Nederland.</p></div>
             <div><h3>Snelle links</h3><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="diensten.html">Diensten</a></li><li><a href="particulier.html">Voor particulieren</a></li><li><a href="zakelijk.html">Voor bedrijven</a></li><li><a href="contact.html">Contact</a></li></ul></div>
             <div><h3>Onze diensten</h3><ul class="footer-links"><li><a href="diensten.html#matrasreiniging">Matrasreiniging</a></li><li><a href="diensten.html#meubelreiniging">Meubelreiniging</a></li><li><a href="diensten.html#vloerreiniging">Vloerreiniging</a></li></ul></div>
-            <div><h3>Contact</h3><ul class="footer-contact-list"><li class="footer-contact-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 2.93 2h3a2 2 0 0 1 2 1.72c.07.38.2.76.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c1.04.5 1.9.63 2.81.7A2 2 0 0 1 21 16.92z"/></svg><a href="tel:+31VERVANGTELEFOON">+31 (0)6 – VERVANG NUMMER</a></li><li class="footer-contact-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:info@agioncleaning.nl">info@agioncleaning.nl</a></li></ul></div>
+            <div><h3>Contact</h3><ul class="footer-contact-list"><li class="footer-contact-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 2.93 2h3a2 2 0 0 1 2 1.72c.07.38.2.76.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c1.04.5 1.9.63 2.81.7A2 2 0 0 1 21 16.92z"/></svg><a href="tel:+31VERVANGTELEFOON">+31 (0)6 – VERVANG NUMMER</a></li><li class="footer-contact-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:info@agiocleaning.nl">info@agiocleaning.nl</a></li></ul></div>
         </div>
     </div>
-    <div class="footer-bottom"><div class="container footer-bottom-inner"><span>&copy; 2025 Agion Cleaning &ndash; Alle rechten voorbehouden</span><div class="footer-legal"><a href="privacy.html">Privacybeleid</a><a href="algemene-voorwaarden.html">Algemene voorwaarden</a></div></div></div>
+    <div class="footer-bottom"><div class="container footer-bottom-inner"><span>&copy; 2025 Agio Cleaning &ndash; Alle rechten voorbehouden</span><div class="footer-legal"><a href="privacy.html">Privacybeleid</a><a href="algemene-voorwaarden.html">Algemene voorwaarden</a></div></div></div>
 </footer>
 
 <a href="https://wa.me/31VERVANGWANUMMER?text=Hallo%2C%20ik%20heb%20een%20vraag%20over%20uw%20reinigingsdiensten." class="whatsapp-btn" target="_blank" rel="noopener noreferrer" aria-label="Neem contact op via WhatsApp">
