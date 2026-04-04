@@ -1,37 +1,30 @@
-*.swp
-*.*~
-project.lock.json
+# OS
 .DS_Store
-*.pyc
-nupkg/
+Thumbs.db
 
-# Visual Studio Code
-.vscode
-
-# Rider
-.idea
-
-# User-specific files
+# Editors
+.vscode/
+.idea/
 *.suo
 *.user
-*.userosscache
-*.sln.docstates
+*.swp
+*.*~
 
-# Build results
+# Replit
+.replit
+.cache/
+.upm/
+.agents/
+.local/
+replit.md
+
+# Node (niet meer in gebruik, maar voor de zekerheid)
+node_modules/
+package-lock.json
+
+# Build artifacts
 [Dd]ebug/
-[Dd]ebugPublic/
 [Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-build/
-bld/
 [Bb]in/
 [Oo]bj/
-[Oo]ut/
-msbuild.log
-msbuild.err
-msbuild.wrn
-
-# Visual Studio 2015
-.vs/
+build/
