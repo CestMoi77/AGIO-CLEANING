@@ -1,0 +1,79 @@
+Voer nu een gerichte fixronde uit op de website.
+
+BELANGRIJK:
+De juiste bedrijfsnaam is overal:
+AGIO CLEANING
+Dus NIET: Agion Cleaning
+
+Pas dit overal consequent aan in alle bestanden:
+- zichtbare teksten
+- logo-tekst
+- meta titles
+- meta descriptions
+- Open Graph
+- schema.org markup
+- footer
+- contactgegevens / placeholders
+- e-mailteksten in contact.php
+- eventuele domein/placeholders zoals agioncleaning.nl -> agiocleaning.nl (als placeholder)
+
+Voer daarnaast deze verbeteringen door:
+
+1. BRANDING CORRECTIE
+- Vervang overal “Agion Cleaning” door “AGIO CLEANING” of “Agio Cleaning”, afhankelijk van wat visueel logisch is
+- Gebruik in lopende tekst bij voorkeur “Agio Cleaning”
+- Gebruik in logo / merkpresentatie consequent “AGIO CLEANING” of een nette visuele variant
+- Controleer ook bestandsinhoud van index, contact, footer, schema markup en PHP-mails
+
+2. FOOTER CSS FIXEN
+- In style.css klopt de selector voor footer headings niet goed
+- De huidige selector .footer-col h3 past waarschijnlijk niet op de HTML
+- Zorg dat de footer headings correct wit / zichtbaar gestyled worden op basis van de echte HTML-structuur
+
+3. SERVICE CARDS UX FIX
+- Klikbare service-cards mogen geen cursor: default hebben
+- Zet dit om naar cursor: pointer
+
+4. CONTACTFORMULIER ROBUUSTER MAKEN
+- Controleer in contact.php of mail() daadwerkelijk succesvol is
+- Als verzenden mislukt:
+  - stuur NIET door naar bedankt.html
+  - stuur terug naar contact.html met een nette foutmelding
+- Voeg eenvoudige extra bescherming toe tegen spam:
+  - honeypot hidden field
+  - basis server-side controle daarop
+- Houd de oplossing simpel en geschikt voor standaard hosting zoals STRATO
+
+5. FORM VALIDATIE AANSCHERPEN
+- Zorg dat klanttype echt bewust gekozen wordt
+- Voeg in contact.html bij klanttype eerst een lege placeholder-optie toe, zoals:
+  “Maak een keuze”
+- Voeg in contact.php een whitelist-validatie toe voor:
+  - klanttype
+  - dienst
+
+6. TOEGANKELIJKHEID / UX VERBETEREN
+- Voeg nette :focus-visible stijlen toe voor links, buttons en formuliervelden
+- Voeg prefers-reduced-motion ondersteuning toe
+- Houd het licht en simpel
+
+7. TESTIMONIALS NETJES AFHANDELEN
+- Verwijder verzonnen testimonials, OF
+- vervang ze door duidelijke placeholders / voorbeeldreviews die niet als echte klantreviews gepresenteerd worden
+- Geen neppe reviews live laten staan
+
+8. SEO / AFWERKING
+- Voeg per pagina een canonical tag toe
+- Controleer titles en descriptions
+- Houd alles netjes en production-ready
+
+9. ONDERHOUDBAARHEID
+- Laat inline styles zoveel mogelijk verplaatsen naar style.css waar logisch
+- Houd de code simpel, duidelijk en exporteerbaar
+
+WERKWIJZE:
+- Pas de bestaande code aan
+- Geef daarna een korte samenvatting van:
+  1. wat je hebt aangepast
+  2. welke bestanden zijn gewijzigd
+  3. wat ik nog zelf moet invullen
