@@ -1,120 +1,125 @@
 # Agion Cleaning Website
 
-Volledige bedrijfswebsite voor Agion Cleaning — een Nederlands schoonmaakbedrijf gespecialiseerd in matrasreiniging, meubelreiniging en vloerreiniging.
+Volledige bedrijfswebsite voor Agion Cleaning — een Nederlands schoonmaakbedrijf
+gespecialiseerd in matrasreiniging, meubelreiniging en vloerreiniging.
 
 ## Tech Stack
 
-- **Frontend:** React 18 + TypeScript + Vite + Tailwind CSS
-- **Routing:** React Router v6
-- **Iconen:** Lucide React
-- **Backend:** Express.js (Node.js) voor contactformulier + e-mail
-- **E-mail:** Nodemailer (SMTP)
+- **Frontend:** HTML5 + moderne CSS3 + lichte vanilla JavaScript
+- **Backend (contactformulier):** PHP 8.2 mail() of PHPMailer (SMTP)
+- **Server (lokaal/Replit):** PHP 8.2 built-in server (`php -S 0.0.0.0:5000 -t .`)
+- **Hosting:** Geschikt voor standaard webhosting (STRATO, TransIP, etc.)
+- **Editor:** Bewerkbaar in Microsoft Visual Studio 2022
 
-## Projectstructuur
+## Bestandsstructuur
 
 ```
-├── src/
-│   ├── components/
-│   │   ├── layout/         Header, Footer, Layout
-│   │   └── ui/             Button, WhatsAppButton, ServiceCard
-│   ├── pages/
-│   │   ├── HomePage.tsx
-│   │   ├── DienstenPage.tsx
-│   │   ├── ParticulierPage.tsx
-│   │   ├── ZakelijkPage.tsx
-│   │   ├── ContactPage.tsx
-│   │   ├── SEOPage.tsx
-│   │   ├── BedanktPage.tsx
-│   │   └── NotFoundPage.tsx
-│   ├── App.tsx
-│   └── main.tsx
-├── server.js              Express backend (contactformulier)
-├── index.html
-├── vite.config.ts
-├── tailwind.config.js
-└── package.json
+agion-cleaning/
+├── index.html                   Homepagina
+├── diensten.html                Dienstenpagina (matras, meubel, vloer)
+├── particulier.html             Pagina voor particulieren
+├── zakelijk.html                Pagina voor zakelijke klanten
+├── contact.html                 Contactpagina met formulier
+├── professionele-reiniging.html SEO-pagina met uitgebreide FAQ
+├── bedankt.html                 Bedanktpagina na formulierverzending
+├── 404.html                     Pagina niet gevonden
+├── contact.php                  PHP-handler voor contactformulier
+├── css/
+│   └── style.css               Alle stijlen (CSS-variabelen, responsive, componenten)
+└── js/
+    └── main.js                 Lichte JavaScript (menu, FAQ, validatie)
 ```
 
-## Pagina's & Routes
-
-| Route                       | Pagina                  |
-|-----------------------------|-------------------------|
-| `/`                         | Homepagina              |
-| `/diensten`                 | Dienstenpagina          |
-| `/particulier`              | Voor particulieren      |
-| `/zakelijk`                 | Voor zakelijke klanten  |
-| `/contact`                  | Contactpagina           |
-| `/professionele-reiniging`  | SEO-informatiepagina    |
-| `/bedankt`                  | Bedanktpagina           |
-
-## Starten
+## Server starten
 
 ```bash
-npm run dev
+php -S 0.0.0.0:5000 -t .
 ```
 
-Dit start zowel Vite (frontend op poort 5000) als de Express API (poort 3001) tegelijk via `concurrently`.
+## Wat u MOET aanpassen voor gebruik
 
-## Configuratie: Verplichte Placeholders
+Zoek in **alle HTML-bestanden** naar de volgende teksten en vervang ze:
 
-### 1. E-mail & SMTP (via Replit Secrets)
+| Placeholder             | Vervangen door                         | Uitleg                            |
+|-------------------------|----------------------------------------|-----------------------------------|
+| `VERVANGTELEFOON`       | bijv. `31612345678`                    | Telefoonnummer (zonder + of 0)    |
+| `VERVANG NUMMER`        | bijv. `06 12 34 56 78`                 | Leesbaar telefoonnummer           |
+| `VERVANGWANUMMER`       | bijv. `31612345678`                    | WhatsApp-nummer (zonder + of 0)   |
+| `info@agioncleaning.nl` | uw eigen e-mailadres                   | Weergegeven e-mailadres           |
 
-Stel de volgende Secrets in via Replit:
+### contact.php aanpassen
 
-| Secret          | Beschrijving                                          |
-|-----------------|-------------------------------------------------------|
-| `CONTACT_EMAIL` | E-mailadres waarop u berichten wilt ontvangen         |
-| `SMTP_HOST`     | SMTP-server (bijv. `smtp.gmail.com`)                  |
-| `SMTP_PORT`     | Poortnummer (587 voor TLS, 465 voor SSL)              |
-| `SMTP_USER`     | SMTP gebruikersnaam (doorgaans het e-mailadres)       |
-| `SMTP_PASS`     | SMTP wachtwoord of app-specifiek wachtwoord           |
-
-### 2. WhatsApp-nummer
-
-Zoek in de code naar `VERVANGWANUMMER` en vervang dit met uw echte WhatsApp-nummer (zonder `+`, met landcode).
-Bijv: `31612345678` voor +31 6 12345678.
-
-Bestanden: `src/components/ui/WhatsAppButton.tsx`, `src/pages/HomePage.tsx`, `src/pages/ContactPage.tsx`, etc.
-
-### 3. Telefoonnummer
-
-Zoek naar `VERVANGTELEFOON` of `VERVANG NUMMER` en vervang met uw echte telefoonnummer.
-
-### 4. E-mailadres
-
-Vervang `info@agioncleaning.nl` met uw eigen e-mailadres in de footer, contact- en bedanktpagina.
-
-### 5. Logo
-
-Vervang het tijdelijke logo-blok in `Header.tsx` en `Footer.tsx` met een `<img>` tag naar uw eigen logo.
-
-### 6. Werkgebied
-
-Pas het werkgebied aan in `Footer.tsx` en `ContactPage.tsx`.
-
-### 7. Domein / SEO
-
-Pas de canonical URL en Open Graph URL aan in `index.html`:
-- `og:url` → uw domeinnaam
-- Schema markup `url` → uw domeinnaam
-
-## Toekomstbestendige AI-chat Integratie
-
-In `src/components/layout/Layout.tsx` staat een placeholder-comment:
-```tsx
-{/* AI-CHAT PLACEHOLDER
-    Hier kan later een AI-chatassistent geïntegreerd worden.
-    Voeg hier een <AIChatWidget /> component toe wanneer gereed.
-*/}
+Open `contact.php` en pas aan:
+```php
+$ontvangerEmail  = 'info@agioncleaning.nl';   // ← uw e-mailadres
+$ontvangerNaam   = 'Agion Cleaning';           // ← uw bedrijfsnaam
+$afzenderDomain  = 'agioncleaning.nl';         // ← uw domeinnaam
 ```
 
-## Kleurenschema Aanpassen
+### Logo vervangen
 
-Pas de huisstijlkleuren aan in `tailwind.config.js` onder `theme.extend.colors.primary`.
+In de header van elk HTML-bestand staat:
+```html
+<!-- AANPASSEN: Vervang logo-blok met <img ...> -->
+<div class="logo-icon" aria-hidden="true">A</div>
+```
+Vervang dit met:
+```html
+<img src="img/logo.png" alt="Agion Cleaning" width="140" height="40">
+```
 
-## Publiceren (Replit Deploy)
+### Google Maps toevoegen
 
-1. Zorg dat alle Replit Secrets ingesteld zijn
-2. Klik op "Publish" / "Deploy" in Replit
-3. De build command is `npm run build`
-4. De run command is `node server.js` (serveert ook de gebouwde frontend)
+In `contact.html` staat een placeholder:
+```html
+<div class="maps-placeholder">...</div>
+```
+Vervang dit door een Google Maps embed-iframe van https://www.google.com/maps/
+
+### Kleuren aanpassen
+
+Pas de huisstijlkleuren aan in `css/style.css` onder `:root`:
+```css
+:root {
+    --primary:      #1e7be6;   /* ← Hoofdkleur blauw */
+    --accent:       #0d9488;   /* ← Accentkleur teal */
+}
+```
+
+### Social media links
+
+In de footer van alle pagina's staat `href="#"` voor Facebook, Instagram en LinkedIn.
+Vervang `#` door uw echte social media URL's.
+
+## Exporteren naar STRATO
+
+Upload de volgende bestanden en mappen via FTP:
+- `index.html`
+- `diensten.html`
+- `particulier.html`
+- `zakelijk.html`
+- `contact.html`
+- `professionele-reiniging.html`
+- `bedankt.html`
+- `404.html`
+- `contact.php`
+- `css/` (map)
+- `js/` (map)
+- `img/` (map, indien aangemaakt)
+
+**Let op STRATO:** De PHP mail()-functie is standaard beschikbaar op STRATO-hostingpakketten.
+Als e-mails niet aankomen, controleer dan uw spammap of configureer PHPMailer via SMTP
+(zie de instructies onderaan `contact.php`).
+
+## Pagina's & navigatie
+
+| Bestand                      | Pagina                     | Navigatielink  |
+|------------------------------|----------------------------|----------------|
+| `index.html`                 | Homepagina                 | Home           |
+| `diensten.html`              | Dienstenoverzicht          | Diensten       |
+| `particulier.html`           | Voor particulieren         | Particulier    |
+| `zakelijk.html`              | Voor zakelijke klanten     | Zakelijk       |
+| `contact.html`               | Contactformulier           | Contact        |
+| `professionele-reiniging.html` | SEO/FAQ-pagina           | (footer/links) |
+| `bedankt.html`               | Na formulierverzending     | (automatisch)  |
+| `404.html`                   | Pagina niet gevonden       | (automatisch)  |
