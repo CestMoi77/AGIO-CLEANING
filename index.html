@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- FAVICON: Vervang dit met je eigen favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO BASIS - Wordt per pagina overschreven via React Helmet equivalent -->
+    <title>Agion Cleaning – Professionele Matras-, Meubel- en Vloerreiniging</title>
+    <meta name="description" content="Agion Cleaning is uw specialist in professionele matrasreiniging, meubelreiniging en vloerreiniging. Voor particulieren én bedrijven. Vraag vrijblijvend een offerte aan." />
+
+    <!-- Open Graph basis -->
+    <meta property="og:type" content="website" />
+    <!-- OG_URL: Vervang met uw domeinnaam -->
+    <meta property="og:url" content="https://www.agioncleaning.nl/" />
+    <meta property="og:title" content="Agion Cleaning – Professionele Matras-, Meubel- en Vloerreiniging" />
+    <meta property="og:description" content="Agion Cleaning is uw specialist in professionele matrasreiniging, meubelreiniging en vloerreiniging. Voor particulieren én bedrijven." />
+    <!-- OG_IMAGE: Vervang met een echt preview-afbeelding -->
+    <meta property="og:image" content="/og-image.jpg" />
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Schema Markup: LocalBusiness / CleaningService -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CleaningService",
+      "name": "Agion Cleaning",
+      "description": "Professionele matrasreiniging, meubelreiniging en vloerreiniging voor particulieren en bedrijven.",
+      "url": "https://www.agioncleaning.nl",
+      "telephone": "+31-VERVANG-TELEFOONNUMMER",
+      "email": "info@agioncleaning.nl",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "NL",
+        "addressRegion": "VERVANG-REGIO"
+      },
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Nederland"
+      },
+      "serviceType": ["Matrasreiniging", "Meubelreiniging", "Vloerreiniging"],
+      "priceRange": "$$"
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

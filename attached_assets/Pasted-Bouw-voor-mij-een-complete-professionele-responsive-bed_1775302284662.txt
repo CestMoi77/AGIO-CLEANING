@@ -1,0 +1,245 @@
+Bouw voor mij een complete, professionele, responsive bedrijfswebsite voor een Nederlands schoonmaakbedrijf met de naam “Agion Cleaning”.
+
+BELANGRIJK:
+- Lever een volledig werkende website op, niet alleen een mockup.
+- Schrijf de hele website in het Nederlands.
+- Maak het design modern, strak, professioneel, betrouwbaar, conversiegericht en geschikt voor een schoonmaakbedrijf.
+- Laat de uitstraling een mix zijn van:
+  1) toegankelijk en duidelijk voor particuliere klanten
+  2) professioneel en zakelijk sterk voor zakelijke klanten
+- Gebruik de stijl van moderne schoonmaak- en facilitaire bedrijven als inspiratie, maar kopieer geen bestaande website letterlijk.
+- De website moet geschikt zijn voor mobiel, tablet en desktop.
+- Gebruik een nette, rustige kleurencombinatie die past bij schoonmaak, frisheid, vertrouwen en professionaliteit.
+- Bouw herbruikbare componenten en nette projectstructuur.
+- Zorg dat het project direct goed draait in Replit.
+
+TECHNISCHE KEUZE:
+- Kies een moderne, stabiele stack die goed werkt in Replit.
+- Voorkeur: React + TypeScript + Tailwind CSS + nette componentstructuur.
+- Als Next.js in Replit stabieler is, gebruik dan Next.js met TypeScript en Tailwind.
+- Gebruik een professionele folderstructuur.
+- Voeg duidelijke comments toe waar configuratie of content later aangepast moet worden.
+- Maak de code schoon, leesbaar en production-ready.
+
+BEDRIJF:
+Naam: Agion Cleaning
+
+FOCUS VAN HET BEDRIJF:
+- Matrasreiniging
+- Meubelreiniging
+- Vloerreiniging
+
+DOEL VAN DE WEBSITE:
+- Vertrouwen opbouwen
+- Professionele uitstraling geven
+- Zowel particuliere als zakelijke klanten aanspreken
+- Meer aanvragen/contact genereren
+- Goed vindbaar zijn in Google
+- Later uitbreidbaar zijn met extra functies, zoals een AI-chatassistent
+
+PAGINA’S DIE VERPLICHT MOETEN WORDEN GEMAAKT:
+1. Homepagina
+2. Dienstenpagina
+3. Pagina voor particuliere klanten
+4. Pagina voor zakelijke klanten
+5. Contactpagina
+6. SEO-pagina
+
+EXTRA VERPLICHTE FUNCTIONALITEITEN:
+- Contactformulier dat berichten verstuurt naar het e-mailadres van de klant
+- Duidelijke WhatsApp-knop voor direct contact
+- Goede SEO-basis op alle pagina’s
+- Snelle laadtijd
+- Heldere call-to-actions
+- Toekomstbestendige opzet zodat later een AI-chatfunctie kan worden toegevoegd
+
+CONTACTFORMULIER:
+- Maak een volledig werkend contactformulier.
+- Velden:
+  - Naam
+  - E-mailadres
+  - Telefoonnummer
+  - Type klant (Particulier / Zakelijk)
+  - Onderwerp / Gewenste dienst
+  - Bericht
+- Het formulier moet server-side verwerkt worden.
+- Bij verzending moet de klant direct een e-mailmelding ontvangen.
+- Gebruik hiervoor een nette backend-oplossing met environment variables.
+- Gebruik bijvoorbeeld SMTP/Nodemailer of een vergelijkbare nette oplossing.
+- Voeg duidelijke placeholders toe voor:
+  - CONTACT_EMAIL
+  - SMTP_HOST
+  - SMTP_PORT
+  - SMTP_USER
+  - SMTP_PASS
+- Laat in de code duidelijk zien waar deze env vars moeten worden ingesteld.
+- Voeg nette success- en foutmeldingen toe in het formulier.
+- Voeg basisvalidatie toe.
+
+WHATSAPP:
+- Voeg een zwevende WhatsApp-knop toe rechtsonder op de site.
+- Gebruik een duidelijke placeholder voor het WhatsApp-nummer.
+- Open WhatsApp in een nieuw venster/tab.
+- Voeg ook op relevante plekken CTA-knoppen toe zoals:
+  - Vraag direct een offerte aan
+  - Neem contact op
+  - App ons direct
+
+SEO:
+- Maak niet alleen een losse SEO-pagina, maar zorg dat de héle website SEO-vriendelijk is.
+- Voeg per pagina goede:
+  - title tags
+  - meta descriptions
+  - headings (H1/H2/H3)
+  - semantische HTML
+  - nette URL-structuur
+  - alt-teksten voor afbeeldingen
+- Maak de aparte SEO-pagina als informatieve pagina over:
+  - hoe Agion Cleaning werkt
+  - waarom professionele reiniging belangrijk is
+  - veelgestelde vragen
+  - voordelen van periodieke reiniging voor particulieren en bedrijven
+- Voeg schema markup toe waar logisch, bijvoorbeeld LocalBusiness of CleaningService als JSON-LD.
+- Voeg Open Graph basis toe.
+- Maak de content klaar voor vindtermen zoals:
+  - matras reinigen
+  - matrassen reinigen
+  - meubelreiniging
+  - vloerreiniging
+  - schoonmaakbedrijf matrassen
+  - professionele meubelreiniging
+  - zakelijke schoonmaak meubels en vloeren
+- Zorg dat de teksten natuurlijk blijven en niet spammy.
+
+CONTENT / TEKSTEN:
+- Werk de eerste versie van alle teksten zelf uit met AI, in professioneel Nederlands.
+- Toon duidelijke, nette, overtuigende teksten zoals gebruikelijk bij schoonmaakbedrijven.
+- Toon betrouwbaarheid, hygiëne, zorgvuldigheid, service en resultaat.
+- Gebruik een warme, professionele toon.
+- Vermijd overdreven marketingtaal.
+- Laat de teksten direct bruikbaar zijn voor een eerste live-versie.
+- Schrijf per pagina voldoende inhoud, niet te leeg, maar ook niet te langdradig.
+
+HOMEPAGINA – GEWENSTE ONDERDELEN:
+- Hero-sectie met sterke headline en subheadline
+- Korte uitleg van Agion Cleaning
+- Duidelijke CTA-knoppen
+- Overzicht van de 3 hoofdservices:
+  - Matrasreiniging
+  - Meubelreiniging
+  - Vloerreiniging
+- Waarom kiezen voor Agion Cleaning
+- Werkwijze in 3 of 4 stappen
+- Blok voor particulieren
+- Blok voor zakelijke klanten
+- Reviews/testimonials met placeholders
+- FAQ-preview
+- Contact CTA-sectie
+- Footer met contactgegevens, links en social placeholders
+
+DIENSTENPAGINA:
+- Maak een duidelijke overzichtspagina van alle diensten
+- Per dienst een nette sectie met:
+  - Korte uitleg
+  - Voordelen
+  - Voor wie het geschikt is
+  - CTA
+- Werk minimaal deze 3 diensten uit:
+  - Matrasreiniging
+  - Meubelreiniging
+  - Vloerreiniging
+- Voeg eventueel subonderdelen toe zoals:
+  - verwijderen van vuil en vlekken
+  - opfrissen van bekleding
+  - hygiënische dieptereiniging
+  - periodieke reiniging
+
+PARTICULIERE PAGINA:
+- Richt deze pagina op comfort, hygiëne, frisheid, gezondheid en gemak
+- Benoem voordelen voor thuisgebruik
+- Schrijf op een toegankelijke manier
+- Laat zien welke diensten relevant zijn voor particulieren
+- Voeg meerdere CTA’s toe richting contact of offerte
+
+ZAKELIJKE PAGINA:
+- Richt deze pagina op betrouwbaarheid, representativiteit, continuïteit en maatwerk
+- Denk aan doelgroepen zoals:
+  - hotels
+  - verhuur
+  - kantoren
+  - zorginstellingen
+  - vastgoed / beheerders
+  - hospitality
+- Benoem voordelen zoals:
+  - professionele uitstraling
+  - periodieke reiniging
+  - maatwerkafspraken
+  - efficiëntie
+  - servicegericht werken
+- Voeg een nette zakelijke call-to-action toe
+
+CONTACTPAGINA:
+- Maak een duidelijke contactpagina met:
+  - contactformulier
+  - e-mailadres placeholder
+  - telefoonnummer placeholder
+  - WhatsApp CTA
+  - werkgebied placeholder
+  - openingstijden placeholder
+- Voeg een korte tekst toe over snelle reactie / offerte op maat
+- Eventueel ruimte voor Google Maps placeholder
+
+DESIGNRICHTING:
+- Fris, premium, schoon, professioneel
+- Veel witruimte
+- Strakke secties
+- Sterke CTA’s
+- Duidelijke iconen of visuele servicekaarten
+- Gebruik stock/placeholder-afbeeldingen die passen bij:
+  - matrassen reinigen
+  - meubels reinigen
+  - vloeren reinigen
+  - professionele schoonmaak
+- Zorg voor nette hover-effects en subtiele animaties
+- Geen rommelige of goedkope uitstraling
+- De site moet eruitzien alsof een serieus schoonmaakbedrijf hiermee klanten wil winnen
+
+EXTRA PAGINA’S / ONDERDELEN DIE JE OOK MAG TOEVOEGEN ALS DAT DE SITE BETER MAAKT:
+- FAQ-sectie
+- Reviews/testimonials
+- Privacy policy pagina
+- Bedankt-pagina na formulierverzending
+- 404 pagina
+- Kleine “Over ons”-sectie of pagina
+- Footer met snelle links
+- Sticky header
+- Mobile menu
+
+TOEKOMSTBESTENDIGHEID:
+- Bouw de code zo dat later eenvoudig een AI-chatfunctie toegevoegd kan worden
+- Voeg alvast een placeholder-sectie of component toe met commentaar:
+  “Hier kan later een AI-chat assistent geïntegreerd worden”
+- Nog niet echt koppelen aan OpenAI of Gemini, alleen architectonisch voorbereiden
+
+BELANGRIJKE INHOUDELIJKE UITGANGSPUNTEN:
+- Geen prijzen hard coderen tenzij als placeholder
+- Gebruik placeholders waar klantdata later ingevuld moet worden
+- Markeer in de code duidelijk:
+  - waar het e-mailadres ingevuld moet worden
+  - waar het WhatsApp-nummer ingevuld moet worden
+  - waar logo en branding aangepast kunnen worden
+  - waar domein/SEO instellingen aangepast kunnen worden
+- Maak de website eenvoudig uitbreidbaar
+
+WAT IK ALS OUTPUT VAN JOU WIL:
+1. Een volledig werkende website
+2. Mooie Nederlandse teksten als eerste opzet
+3. Werkend contactformulier met backend/email-structuur
+4. Professionele styling
+5. Responsive layout
+6. Duidelijke componentstructuur
+7. Instructies in een README hoe ik het project start, configureer en publiceer in Replit
+8. Uitleg welke environment variables ik moet invullen
+9. Duidelijke placeholders voor logo, e-mail, telefoon, WhatsApp, adres en werkgebied
+
+BOUW NU DE COMPLETE EERSTE VERSIE VAN DE WEBSITE.
