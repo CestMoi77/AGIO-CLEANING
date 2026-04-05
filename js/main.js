@@ -1,5 +1,5 @@
 /**
- * Agio Cleaning – Lichte JavaScript
+ * Agio Cleaning â€“ Lichte JavaScript
  * Verantwoordelijk voor:
  *  - Mobiel navigatiemenu (hamburger)
  *  - Schaduw op header bij scrollen
@@ -9,7 +9,7 @@
 (function () {
     'use strict';
 
-    /* ── 1. STICKY HEADER SCHADUW ── */
+    /* â”€â”€ 1. STICKY HEADER SCHADUW â”€â”€ */
     var header = document.getElementById('site-header');
     if (header) {
         function updateHeader() {
@@ -23,7 +23,7 @@
         updateHeader();
     }
 
-    /* ── 2. HAMBURGER MOBIEL MENU ── */
+    /* â”€â”€ 2. HAMBURGER MOBIEL MENU â”€â”€ */
     var hamburger = document.getElementById('hamburger');
     var mobileMenu = document.getElementById('mobile-menu');
 
@@ -34,7 +34,6 @@
             hamburger.setAttribute('aria-expanded', isOpen);
         });
 
-        // Sluit menu bij klik op een link
         var mobileLinks = mobileMenu.querySelectorAll('a');
         mobileLinks.forEach(function (link) {
             link.addEventListener('click', function () {
@@ -44,7 +43,6 @@
             });
         });
 
-        // Sluit menu bij klik buiten het menu
         document.addEventListener('click', function (e) {
             if (!header.contains(e.target)) {
                 mobileMenu.classList.remove('open');
@@ -54,7 +52,7 @@
         });
     }
 
-    /* ── 3. ACTIEVE NAV-LINK MARKEREN ── */
+    /* â”€â”€ 3. ACTIEVE NAV-LINK MARKEREN â”€â”€ */
     var currentPath = window.location.pathname.split('/').pop() || 'index.html';
     var navLinks = document.querySelectorAll('.nav-links a, .mobile-menu a');
     navLinks.forEach(function (link) {
@@ -64,9 +62,7 @@
         }
     });
 
-    /* ── 4. FAQ ACCORDEON ── */
-    // <details> is native HTML – geen JS nodig voor open/dicht.
-    // Optioneel: sluit andere FAQ-items bij het openen van één item.
+    /* â”€â”€ 4. FAQ ACCORDEON â”€â”€ */
     var faqDetails = document.querySelectorAll('.faq-item details');
     faqDetails.forEach(function (detail) {
         detail.addEventListener('toggle', function () {
@@ -80,16 +76,41 @@
         });
     });
 
-    /* ── 5. FORMULIER: CLIENT-SIDE VALIDATIE FEEDBACK ── */
+    /* â”€â”€ 5. FORMULIER: CLIENT-SIDE VALIDATIE FEEDBACK â”€â”€ */
     var form = document.getElementById('contact-form');
     if (form) {
+        function clearFieldError(field) {
+            field.style.borderColor = '';
+            if (field.type === 'checkbox') {
+                field.style.outline = '';
+                field.style.outlineOffset = '';
+            }
+        }
+
+        function markFieldError(field) {
+            if (field.type === 'checkbox') {
+                field.style.outline = '2px solid #ef4444';
+                field.style.outlineOffset = '2px';
+            } else {
+                field.style.borderColor = '#ef4444';
+            }
+        }
+
+        function fieldHasValue(field) {
+            if (field.type === 'checkbox' || field.type === 'radio') {
+                return field.checked;
+            }
+            return !!field.value.trim();
+        }
+
         form.addEventListener('submit', function (e) {
             var valid = true;
             var requiredFields = form.querySelectorAll('[required]');
+
             requiredFields.forEach(function (field) {
-                field.style.borderColor = '';
-                if (!field.value.trim()) {
-                    field.style.borderColor = '#ef4444';
+                clearFieldError(field);
+                if (!fieldHasValue(field)) {
+                    markFieldError(field);
                     valid = false;
                 }
             });
@@ -98,24 +119,34 @@
             if (emailField && emailField.value) {
                 var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailPattern.test(emailField.value)) {
-                    emailField.style.borderColor = '#ef4444';
+                    markFieldError(emailField);
                     valid = false;
                 }
             }
 
             if (!valid) {
                 e.preventDefault();
-                var firstError = form.querySelector('[style*="border-color"]');
-                if (firstError) firstError.focus();
+                var firstError = form.querySelector('[style*="border-color"], [style*="outline"]');
+                if (firstError) {
+                    firstError.focus();
+                }
                 return;
             }
 
-            // Knop uitschakelen om dubbele verzending te voorkomen
             var submitBtn = form.querySelector('[type="submit"]');
             if (submitBtn) {
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Bezig met verzenden...';
             }
+        });
+
+        form.querySelectorAll('input, select, textarea').forEach(function (field) {
+            field.addEventListener('input', function () {
+                clearFieldError(field);
+            });
+            field.addEventListener('change', function () {
+                clearFieldError(field);
+            });
         });
     }
 

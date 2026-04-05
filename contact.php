@@ -23,6 +23,7 @@ $telefoon  = sanitize($_POST['telefoon']  ?? '');
 $klanttype = sanitize($_POST['klanttype'] ?? '');
 $dienst    = sanitize($_POST['dienst']    ?? '');
 $bericht   = sanitize($_POST['bericht']   ?? '');
+$privacyToestemming = isset($_POST['privacy_toestemming']) ? 'ja' : '';
 $honeypot  = trim($_POST['website_url']   ?? '');
 
 $fouten = [];
@@ -37,6 +38,7 @@ if (empty($email))     $fouten[] = 'E-mailadres is verplicht.';
 if (empty($klanttype)) $fouten[] = 'Selecteer een type klant.';
 if (empty($dienst))    $fouten[] = 'Selecteer een dienst.';
 if (empty($bericht))   $fouten[] = 'Bericht is verplicht.';
+if ($privacyToestemming !== 'ja') $fouten[] = 'U moet akkoord gaan met het privacybeleid.';
 
 if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $fouten[] = 'Voer een geldig e-mailadres in.';
@@ -84,6 +86,7 @@ $berichtEigenaar .= "E-mail:      {$email}\n";
 $berichtEigenaar .= "Telefoon:    " . ($telefoon ?: 'Niet opgegeven') . "\n";
 $berichtEigenaar .= "Type klant:  {$klanttype}\n";
 $berichtEigenaar .= "Dienst:      {$dienst}\n";
+$berichtEigenaar .= "Privacy:     Akkoord\n";
 $berichtEigenaar .= "-------------------------------------------\n\n";
 $berichtEigenaar .= "Bericht:\n{$bericht}\n\n";
 $berichtEigenaar .= "-------------------------------------------\n";
