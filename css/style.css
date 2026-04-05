@@ -613,6 +613,10 @@ strong { font-weight: 600; color: var(--text); }
     align-items: center;
 }
 
+.hero-layout > * {
+    min-width: 0;
+}
+
 .hero h1 {
     color: #fff;
     margin: 1.25rem 0 1.5rem;
@@ -1074,6 +1078,10 @@ strong { font-weight: 600; color: var(--text); }
     box-shadow: var(--shadow-sm);
 }
 
+.maps-placeholder strong {
+    font-size: 0.95rem;
+}
+
 /* Formulier */
 .form-card {
     background: #fff;
@@ -1444,6 +1452,8 @@ strong { font-weight: 600; color: var(--text); }
 .social-links {
     display: flex;
     gap: 0.6rem;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .social-link {
