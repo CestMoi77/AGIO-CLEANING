@@ -12,12 +12,17 @@ $rateLimitMaxVerzoeken = 5;
 $rateLimitVensterSeconden = 15 * 60;
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: contact.html');
+    header('Location: contact.html?fout=invalid_request');
     exit;
 }
 
 function failSafeRedirect() {
     header('Location: bedankt.html');
+    exit;
+}
+
+function redirectWithErrorCode($code) {
+    header('Location: contact.html?fout=' . urlencode($code));
     exit;
 }
 
@@ -98,7 +103,7 @@ $privacyToestemming = isset($_POST['privacy_toestemming']) ? 'ja' : '';
 $honeypot  = trim($_POST['website_url']   ?? '');
 $formRenderedAt = $_POST['form_rendered_at'] ?? '';
 
-$fouten = [];
+$errorCode = '';
 
 if (!empty($honeypot)) {
     failSafeRedirect();
@@ -112,20 +117,24 @@ if (isRateLimited(getClientIp(), $rateLimitMaxVerzoeken, $rateLimitVensterSecond
     failSafeRedirect();
 }
 
-if (empty($naam))      $fouten[] = 'Naam is verplicht.';
-if (empty($email))     $fouten[] = 'E-mailadres is verplicht.';
-if (empty($klanttype)) $fouten[] = 'Selecteer een type klant.';
-if (empty($dienst))    $fouten[] = 'Selecteer een dienst.';
-if (empty($bericht))   $fouten[] = 'Bericht is verplicht.';
-if ($privacyToestemming !== 'ja') $fouten[] = 'U moet akkoord gaan met het privacybeleid.';
+if (
+    empty($naam) ||
+    empty($email) ||
+    empty($klanttype) ||
+    empty($dienst) ||
+    empty($bericht) ||
+    $privacyToestemming !== 'ja'
+) {
+    $errorCode = 'missing_fields';
+}
 
-if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $fouten[] = 'Voer een geldig e-mailadres in.';
+if ($errorCode === '' && !empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $errorCode = 'invalid_email';
 }
 
 $toegestaneKlanttypen = ['Particulier', 'Zakelijk'];
-if (!empty($klanttype) && !in_array($klanttype, $toegestaneKlanttypen, true)) {
-    $fouten[] = 'Ongeldig type klant geselecteerd.';
+if ($errorCode === '' && !empty($klanttype) && !in_array($klanttype, $toegestaneKlanttypen, true)) {
+    $errorCode = 'invalid_selection';
 }
 
 $toegestaneDiensten = [
@@ -136,24 +145,22 @@ $toegestaneDiensten = [
     'Periodiek reinigingscontract (zakelijk)',
     'Andere vraag'
 ];
-if (!empty($dienst) && !in_array($dienst, $toegestaneDiensten, true)) {
-    $fouten[] = 'Ongeldige dienst geselecteerd.';
+if ($errorCode === '' && !empty($dienst) && !in_array($dienst, $toegestaneDiensten, true)) {
+    $errorCode = 'invalid_selection';
 }
 
 $verbodenePatronen = ["\r", "\n", "%0a", "%0d", "Content-Type:", "Bcc:", "Cc:"];
 foreach ([$naam, $email, $telefoon, $klanttype, $dienst] as $veld) {
     foreach ($verbodenePatronen as $patroon) {
         if (stripos($veld, $patroon) !== false) {
-            $fouten[] = 'Ongeldige invoer gedetecteerd.';
+            $errorCode = 'invalid_request';
             break 2;
         }
     }
 }
 
-if (!empty($fouten)) {
-    $foutString = urlencode(implode(' ', $fouten));
-    header('Location: contact.html?fout=' . $foutString);
-    exit;
+if ($errorCode !== '') {
+    redirectWithErrorCode($errorCode);
 }
 
 $onderwerpEigenaar = "Nieuw contactverzoek van {$naam} \u{2013} {$dienst}";
@@ -180,9 +187,7 @@ $headersEigenaar .= "X-Mailer: PHP/" . phpversion() . "\r\n";
 $mailVerzonden = @mail($ontvangerEmail, $onderwerpEigenaar, $berichtEigenaar, $headersEigenaar);
 
 if (!$mailVerzonden) {
-    $foutString = urlencode('Er is een technisch probleem opgetreden bij het versturen van uw bericht. Probeer het later opnieuw of neem telefonisch contact op.');
-    header('Location: contact.html?fout=' . $foutString);
-    exit;
+    redirectWithErrorCode('mail_failed');
 }
 
 $onderwerpKlant = "Bedankt voor uw bericht \u{2013} {$websiteNaam}";

@@ -69,13 +69,20 @@
         </div>
         <script>
             (function() {
+                var foutmeldingen = {
+                    missing_fields: 'Vul alle verplichte velden in en ga akkoord met het privacybeleid.',
+                    invalid_email: 'Voer een geldig e-mailadres in.',
+                    invalid_selection: 'Controleer uw gekozen klanttype en dienst en probeer het opnieuw.',
+                    mail_failed: 'Er is een technisch probleem opgetreden bij het versturen van uw bericht. Probeer het later opnieuw of neem telefonisch contact op.',
+                    invalid_request: 'Uw aanvraag kon niet worden verwerkt. Controleer het formulier en probeer het opnieuw.'
+                };
                 var params = new URLSearchParams(window.location.search);
                 var fout = params.get('fout');
                 if (fout) {
                     var el = document.getElementById('form-error');
                     var txt = document.getElementById('form-error-text');
                     if (el && txt) {
-                        txt.textContent = decodeURIComponent(fout);
+                        txt.textContent = foutmeldingen[fout] || foutmeldingen.invalid_request;
                         el.style.display = 'flex';
                         el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
