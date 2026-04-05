@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" role="img" aria-label="Agio Cleaning merkplaceholder">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1e7be6"/>
+      <stop offset="100%" stop-color="#0d9488"/>
+    </linearGradient>
+  </defs>
+  <rect width="72" height="72" rx="18" fill="url(#g)"/>
+  <path d="M36 16l4.4 10 10.4 4.4-8 7.3 2.1 10.8L36 43.2l-8.9 5.3 2.1-10.8-8-7.3 10.4-4.4L36 16z" fill="#fff" fill-opacity=".96"/>
+</svg>

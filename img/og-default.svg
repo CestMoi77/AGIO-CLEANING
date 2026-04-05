@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Agio Cleaning social share placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#163768"/>
+      <stop offset="55%" stop-color="#1e7be6"/>
+      <stop offset="100%" stop-color="#0d9488"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1020" cy="120" r="160" fill="#ffffff" fill-opacity=".07"/>
+  <circle cx="170" cy="540" r="220" fill="#ffffff" fill-opacity=".05"/>
+  <rect x="88" y="88" width="1024" height="454" rx="28" fill="#ffffff" fill-opacity=".08" stroke="#ffffff" stroke-opacity=".18"/>
+  <rect x="126" y="126" width="104" height="104" rx="24" fill="#ffffff"/>
+  <path d="M178 144l10 22 22 10-17 15 4 24-19-12-19 12 4-24-17-15 22-10 10-22z" fill="#1e7be6"/>
+  <text x="126" y="304" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="70" font-weight="800">Agio Cleaning</text>
+  <text x="126" y="376" fill="#eaf4ff" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="500">Professionele matras-, meubel- en vloerreiniging</text>
+  <text x="126" y="432" fill="#d7f8f1" font-family="Inter, Arial, sans-serif" font-size="28">Vervang deze placeholder voor een definitieve social share afbeelding voor livegang.</text>
+</svg>
