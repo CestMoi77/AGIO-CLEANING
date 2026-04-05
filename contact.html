@@ -78,6 +78,21 @@
                 };
                 var params = new URLSearchParams(window.location.search);
                 var fout = params.get('fout');
+                var veldNamen = ['naam', 'email', 'telefoon', 'klanttype', 'dienst', 'bericht'];
+
+                veldNamen.forEach(function (veldNaam) {
+                    var veld = document.getElementById(veldNaam);
+                    var waarde = params.get(veldNaam);
+                    if (veld && waarde !== null) {
+                        veld.value = waarde;
+                    }
+                });
+
+                var privacyToestemming = document.getElementById('privacy_toestemming');
+                if (privacyToestemming) {
+                    privacyToestemming.checked = params.get('privacy_toestemming') === '1';
+                }
+
                 if (fout) {
                     var el = document.getElementById('form-error');
                     var txt = document.getElementById('form-error-text');

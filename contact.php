@@ -21,8 +21,14 @@ function failSafeRedirect() {
     exit;
 }
 
-function redirectWithErrorCode($code) {
-    header('Location: contact.html?fout=' . urlencode($code));
+function redirectWithErrorCode($code, $oldInput = []) {
+    $query = ['fout' => $code];
+
+    if (!empty($oldInput)) {
+        $query = array_merge($query, $oldInput);
+    }
+
+    header('Location: contact.html?' . http_build_query($query));
     exit;
 }
 
@@ -102,6 +108,15 @@ $bericht   = sanitize($_POST['bericht']   ?? '');
 $privacyToestemming = isset($_POST['privacy_toestemming']) ? 'ja' : '';
 $honeypot  = trim($_POST['website_url']   ?? '');
 $formRenderedAt = $_POST['form_rendered_at'] ?? '';
+$oldInput = [
+    'naam' => $naam,
+    'email' => $email,
+    'telefoon' => $telefoon,
+    'klanttype' => $klanttype,
+    'dienst' => $dienst,
+    'bericht' => $bericht,
+    'privacy_toestemming' => $privacyToestemming === 'ja' ? '1' : '0'
+];
 
 $errorCode = '';
 
@@ -160,7 +175,7 @@ foreach ([$naam, $email, $telefoon, $klanttype, $dienst] as $veld) {
 }
 
 if ($errorCode !== '') {
-    redirectWithErrorCode($errorCode);
+    redirectWithErrorCode($errorCode, $oldInput);
 }
 
 $onderwerpEigenaar = "Nieuw contactverzoek van {$naam} \u{2013} {$dienst}";
@@ -187,7 +202,7 @@ $headersEigenaar .= "X-Mailer: PHP/" . phpversion() . "\r\n";
 $mailVerzonden = @mail($ontvangerEmail, $onderwerpEigenaar, $berichtEigenaar, $headersEigenaar);
 
 if (!$mailVerzonden) {
-    redirectWithErrorCode('mail_failed');
+    redirectWithErrorCode('mail_failed', $oldInput);
 }
 
 $onderwerpKlant = "Bedankt voor uw bericht \u{2013} {$websiteNaam}";
