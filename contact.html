@@ -68,7 +68,7 @@
             <span id="form-error-text"></span>
         </div>
         <script>
-            (function() {
+            document.addEventListener('DOMContentLoaded', function() {
                 var foutmeldingen = {
                     missing_fields: 'Vul alle verplichte velden in en ga akkoord met het privacybeleid.',
                     invalid_email: 'Voer een geldig e-mailadres in.',
@@ -76,9 +76,30 @@
                     mail_failed: 'Er is een technisch probleem opgetreden bij het versturen van uw bericht. Probeer het later opnieuw of neem telefonisch contact op.',
                     invalid_request: 'Uw aanvraag kon niet worden verwerkt. Controleer het formulier en probeer het opnieuw.'
                 };
+                var invalidFieldsByError = {
+                    missing_fields: ['naam', 'email', 'klanttype', 'dienst', 'bericht', 'privacy_toestemming'],
+                    invalid_email: ['email'],
+                    invalid_selection: ['klanttype', 'dienst'],
+                    invalid_request: ['naam', 'email', 'klanttype', 'dienst', 'bericht', 'privacy_toestemming']
+                };
                 var params = new URLSearchParams(window.location.search);
                 var fout = params.get('fout');
                 var veldNamen = ['naam', 'email', 'telefoon', 'klanttype', 'dienst', 'bericht'];
+
+                function markInvalidField(fieldId) {
+                    var field = document.getElementById(fieldId);
+                    if (!field) {
+                        return;
+                    }
+
+                    field.classList.add('is-invalid');
+                    field.setAttribute('aria-invalid', 'true');
+
+                    var formGroup = field.closest('.form-group');
+                    if (formGroup) {
+                        formGroup.classList.add('is-invalid');
+                    }
+                }
 
                 veldNamen.forEach(function (veldNaam) {
                     var veld = document.getElementById(veldNaam);
@@ -94,6 +115,8 @@
                 }
 
                 if (fout) {
+                    (invalidFieldsByError[fout] || []).forEach(markInvalidField);
+
                     var el = document.getElementById('form-error');
                     var txt = document.getElementById('form-error-text');
                     if (el && txt) {
@@ -102,7 +125,7 @@
                         el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
                 }
-            })();
+            });
         </script>
 
         <div class="contact-grid">

@@ -1018,6 +1018,23 @@ strong { font-weight: 600; color: var(--text); }
     box-shadow: 0 0 0 3px rgba(30, 123, 230, 0.12);
 }
 
+.form-group.is-invalid label {
+    color: #b91c1c;
+}
+
+.form-group input.is-invalid,
+.form-group select.is-invalid,
+.form-group textarea.is-invalid {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+
+.form-group input[type="checkbox"].is-invalid {
+    outline: 2px solid #ef4444;
+    outline-offset: 2px;
+    box-shadow: none;
+}
+
 .form-group textarea {
     resize: vertical;
     min-height: 130px;
