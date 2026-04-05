@@ -7,10 +7,81 @@ $ontvangerEmail  = 'info@agiocleaning.nl';
 $ontvangerNaam   = 'Agio Cleaning';
 $afzenderDomain  = 'agiocleaning.nl';
 $websiteNaam     = 'Agio Cleaning';
+$minimaleInvultijd = 3;
+$rateLimitMaxVerzoeken = 5;
+$rateLimitVensterSeconden = 15 * 60;
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: contact.html');
     exit;
+}
+
+function failSafeRedirect() {
+    header('Location: bedankt.html');
+    exit;
+}
+
+function getClientIp() {
+    $ip = trim($_SERVER['REMOTE_ADDR'] ?? '');
+    if ($ip === '') {
+        return 'unknown';
+    }
+    return preg_replace('/[^a-fA-F0-9:\.\-]/', '', $ip) ?: 'unknown';
+}
+
+function isSubmissionTooFast($renderedAt, $minimumSeconds) {
+    if (!is_numeric($renderedAt)) {
+        return false;
+    }
+
+    $age = time() - (int) $renderedAt;
+    return $age >= 0 && $age < $minimumSeconds;
+}
+
+function isRateLimited($ip, $maxRequests, $windowSeconds) {
+    $storageDir = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'agio-cleaning-contact-rate-limit';
+    if (!is_dir($storageDir) && !@mkdir($storageDir, 0755, true) && !is_dir($storageDir)) {
+        return false;
+    }
+
+    $storageFile = $storageDir . DIRECTORY_SEPARATOR . hash('sha256', $ip) . '.json';
+    $handle = @fopen($storageFile, 'c+');
+    if ($handle === false) {
+        return false;
+    }
+
+    $now = time();
+    $timestamps = [];
+
+    if (flock($handle, LOCK_EX)) {
+        $raw = stream_get_contents($handle);
+        $decoded = json_decode($raw ?: '[]', true);
+        if (is_array($decoded)) {
+            $timestamps = array_values(array_filter($decoded, function ($timestamp) use ($now, $windowSeconds) {
+                return is_int($timestamp) && ($now - $timestamp) < $windowSeconds;
+            }));
+        }
+
+        if (count($timestamps) >= $maxRequests) {
+            ftruncate($handle, 0);
+            rewind($handle);
+            fwrite($handle, json_encode($timestamps));
+            fflush($handle);
+            flock($handle, LOCK_UN);
+            fclose($handle);
+            return true;
+        }
+
+        $timestamps[] = $now;
+        ftruncate($handle, 0);
+        rewind($handle);
+        fwrite($handle, json_encode($timestamps));
+        fflush($handle);
+        flock($handle, LOCK_UN);
+    }
+
+    fclose($handle);
+    return false;
 }
 
 function sanitize($input) {
@@ -25,12 +96,20 @@ $dienst    = sanitize($_POST['dienst']    ?? '');
 $bericht   = sanitize($_POST['bericht']   ?? '');
 $privacyToestemming = isset($_POST['privacy_toestemming']) ? 'ja' : '';
 $honeypot  = trim($_POST['website_url']   ?? '');
+$formRenderedAt = $_POST['form_rendered_at'] ?? '';
 
 $fouten = [];
 
 if (!empty($honeypot)) {
-    header('Location: bedankt.html');
-    exit;
+    failSafeRedirect();
+}
+
+if (isSubmissionTooFast($formRenderedAt, $minimaleInvultijd)) {
+    failSafeRedirect();
+}
+
+if (isRateLimited(getClientIp(), $rateLimitMaxVerzoeken, $rateLimitVensterSeconden)) {
+    failSafeRedirect();
 }
 
 if (empty($naam))      $fouten[] = 'Naam is verplicht.';
