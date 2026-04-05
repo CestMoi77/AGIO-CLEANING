@@ -218,6 +218,7 @@
                         <input type="text" id="website_url" name="website_url" autocomplete="off" tabindex="-1">
                     </div>
                     <input type="hidden" id="form_rendered_at" name="form_rendered_at" value="">
+                    <input type="hidden" id="csrf_token" name="csrf_token" value="">
 
                     <div class="form-row">
                         <div class="form-group">
@@ -304,8 +305,24 @@
 <script>
     (function () {
         var renderedField = document.getElementById('form_rendered_at');
+        var csrfField = document.getElementById('csrf_token');
+
+        function generateToken() {
+            var array = new Uint8Array(24);
+            window.crypto.getRandomValues(array);
+            return Array.from(array, function (byte) {
+                return byte.toString(16).padStart(2, '0');
+            }).join('');
+        }
+
         if (renderedField) {
             renderedField.value = Math.floor(Date.now() / 1000);
+        }
+
+        if (csrfField && window.crypto && window.crypto.getRandomValues) {
+            var token = generateToken();
+            csrfField.value = token;
+            document.cookie = 'agio_csrf_token=' + token + '; path=/; SameSite=Strict';
         }
     })();
 </script>

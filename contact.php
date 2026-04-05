@@ -99,6 +99,18 @@ function sanitize($input) {
     return htmlspecialchars(strip_tags(trim($input ?? '')), ENT_QUOTES, 'UTF-8');
 }
 
+function hasValidCsrfToken($submittedToken, $cookieToken) {
+    if (!is_string($submittedToken) || !is_string($cookieToken)) {
+        return false;
+    }
+
+    if ($submittedToken === '' || $cookieToken === '') {
+        return false;
+    }
+
+    return hash_equals($cookieToken, $submittedToken);
+}
+
 $naam      = sanitize($_POST['naam']      ?? '');
 $email     = sanitize($_POST['email']     ?? '');
 $telefoon  = sanitize($_POST['telefoon']  ?? '');
@@ -108,6 +120,8 @@ $bericht   = sanitize($_POST['bericht']   ?? '');
 $privacyToestemming = isset($_POST['privacy_toestemming']) ? 'ja' : '';
 $honeypot  = trim($_POST['website_url']   ?? '');
 $formRenderedAt = $_POST['form_rendered_at'] ?? '';
+$csrfToken = $_POST['csrf_token'] ?? '';
+$csrfCookieToken = $_COOKIE['agio_csrf_token'] ?? '';
 $oldInput = [
     'naam' => $naam,
     'email' => $email,
@@ -129,6 +143,10 @@ if (isSubmissionTooFast($formRenderedAt, $minimaleInvultijd)) {
 }
 
 if (isRateLimited(getClientIp(), $rateLimitMaxVerzoeken, $rateLimitVensterSeconden)) {
+    failSafeRedirect();
+}
+
+if (!hasValidCsrfToken($csrfToken, $csrfCookieToken)) {
     failSafeRedirect();
 }
 
