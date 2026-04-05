@@ -1,5 +1,5 @@
 /**
- * Agio Cleaning â€“ Lichte JavaScript
+ * Agio Cleaning - Lichte JavaScript
  * Verantwoordelijk voor:
  *  - Mobiel navigatiemenu (hamburger)
  *  - Schaduw op header bij scrollen
@@ -9,7 +9,86 @@
 (function () {
     'use strict';
 
-    /* â”€â”€ 1. STICKY HEADER SCHADUW â”€â”€ */
+    function generateToken() {
+        var array = new Uint8Array(24);
+        window.crypto.getRandomValues(array);
+        return Array.from(array, function (byte) {
+            return byte.toString(16).padStart(2, '0');
+        }).join('');
+    }
+
+    function initContactFormState() {
+        var foutmeldingen = {
+            missing_fields: 'Vul alle verplichte velden in en ga akkoord met het privacybeleid.',
+            invalid_email: 'Voer een geldig e-mailadres in.',
+            invalid_selection: 'Controleer uw gekozen klanttype en dienst en probeer het opnieuw.',
+            mail_failed: 'Er is een technisch probleem opgetreden bij het versturen van uw bericht. Probeer het later opnieuw of neem telefonisch contact op.',
+            invalid_request: 'Uw aanvraag kon niet worden verwerkt. Controleer het formulier en probeer het opnieuw.'
+        };
+        var invalidFieldsByError = {
+            missing_fields: ['naam', 'email', 'klanttype', 'dienst', 'bericht', 'privacy_toestemming'],
+            invalid_email: ['email'],
+            invalid_selection: ['klanttype', 'dienst'],
+            invalid_request: ['naam', 'email', 'klanttype', 'dienst', 'bericht', 'privacy_toestemming']
+        };
+        var params = new URLSearchParams(window.location.search);
+        var fout = params.get('fout');
+        var veldNamen = ['naam', 'email', 'telefoon', 'klanttype', 'dienst', 'bericht'];
+        var renderedField = document.getElementById('form_rendered_at');
+        var csrfField = document.getElementById('csrf_token');
+        var privacyToestemming = document.getElementById('privacy_toestemming');
+
+        function markInvalidField(fieldId) {
+            var field = document.getElementById(fieldId);
+            if (!field) {
+                return;
+            }
+
+            field.classList.add('is-invalid');
+            field.setAttribute('aria-invalid', 'true');
+
+            var formGroup = field.closest('.form-group');
+            if (formGroup) {
+                formGroup.classList.add('is-invalid');
+            }
+        }
+
+        veldNamen.forEach(function (veldNaam) {
+            var veld = document.getElementById(veldNaam);
+            var waarde = params.get(veldNaam);
+            if (veld && waarde !== null) {
+                veld.value = waarde;
+            }
+        });
+
+        if (privacyToestemming) {
+            privacyToestemming.checked = params.get('privacy_toestemming') === '1';
+        }
+
+        if (renderedField) {
+            renderedField.value = Math.floor(Date.now() / 1000);
+        }
+
+        if (csrfField && window.crypto && window.crypto.getRandomValues) {
+            var token = generateToken();
+            csrfField.value = token;
+            document.cookie = 'agio_csrf_token=' + token + '; path=/; SameSite=Strict';
+        }
+
+        if (fout) {
+            (invalidFieldsByError[fout] || []).forEach(markInvalidField);
+
+            var el = document.getElementById('form-error');
+            var txt = document.getElementById('form-error-text');
+            if (el && txt) {
+                txt.textContent = foutmeldingen[fout] || foutmeldingen.invalid_request;
+                el.style.display = 'flex';
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    }
+
+    /* 1. STICKY HEADER SCHADUW */
     var header = document.getElementById('site-header');
     if (header) {
         function updateHeader() {
@@ -23,7 +102,7 @@
         updateHeader();
     }
 
-    /* â”€â”€ 2. HAMBURGER MOBIEL MENU â”€â”€ */
+    /* 2. HAMBURGER MOBIEL MENU */
     var hamburger = document.getElementById('hamburger');
     var mobileMenu = document.getElementById('mobile-menu');
 
@@ -52,7 +131,7 @@
         });
     }
 
-    /* â”€â”€ 3. ACTIEVE NAV-LINK MARKEREN â”€â”€ */
+    /* 3. ACTIEVE NAV-LINK MARKEREN */
     var currentPath = window.location.pathname.split('/').pop() || 'index.html';
     var navLinks = document.querySelectorAll('.nav-links a, .mobile-menu a');
     navLinks.forEach(function (link) {
@@ -62,7 +141,7 @@
         }
     });
 
-    /* â”€â”€ 4. FAQ ACCORDEON â”€â”€ */
+    /* 4. FAQ ACCORDEON */
     var faqDetails = document.querySelectorAll('.faq-item details');
     faqDetails.forEach(function (detail) {
         detail.addEventListener('toggle', function () {
@@ -76,23 +155,41 @@
         });
     });
 
-    /* â”€â”€ 5. FORMULIER: CLIENT-SIDE VALIDATIE FEEDBACK â”€â”€ */
+    /* 5. FORMULIER: CLIENT-SIDE VALIDATIE FEEDBACK */
     var form = document.getElementById('contact-form');
     if (form) {
+        initContactFormState();
+
         function clearFieldError(field) {
             field.style.borderColor = '';
+            field.classList.remove('is-invalid');
+            field.removeAttribute('aria-invalid');
+
             if (field.type === 'checkbox') {
                 field.style.outline = '';
                 field.style.outlineOffset = '';
             }
+
+            var formGroup = field.closest('.form-group');
+            if (formGroup) {
+                formGroup.classList.remove('is-invalid');
+            }
         }
 
         function markFieldError(field) {
+            field.classList.add('is-invalid');
+            field.setAttribute('aria-invalid', 'true');
+
             if (field.type === 'checkbox') {
                 field.style.outline = '2px solid #ef4444';
                 field.style.outlineOffset = '2px';
             } else {
                 field.style.borderColor = '#ef4444';
+            }
+
+            var formGroup = field.closest('.form-group');
+            if (formGroup) {
+                formGroup.classList.add('is-invalid');
             }
         }
 
@@ -126,7 +223,7 @@
 
             if (!valid) {
                 e.preventDefault();
-                var firstError = form.querySelector('[style*="border-color"], [style*="outline"]');
+                var firstError = form.querySelector('[style*="border-color"], [style*="outline"], .is-invalid');
                 if (firstError) {
                     firstError.focus();
                 }
@@ -149,5 +246,4 @@
             });
         });
     }
-
 })();
