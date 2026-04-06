@@ -37,7 +37,18 @@
             </a>
             <ul class="nav-links" role="list">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="diensten.html" class="active">Diensten</a></li>
+                <li class="nav-item nav-item-services">
+                    <a href="diensten.html" class="active nav-link-with-icon">
+                        Diensten
+                        <svg class="nav-link-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </a>
+                    <ul class="services-submenu" role="list">
+                        <li><a href="diensten.html#matrasreiniging">Matrasreiniging</a></li>
+                        <li><a href="diensten.html#meubelreiniging">Meubelreiniging</a></li>
+                        <li><a href="diensten.html#tapijtreiniging">Tapijtreiniging</a></li>
+                        <li><a href="diensten.html#harde-vloeren">Harde vloeren</a></li>
+                    </ul>
+                </li>
                 <li><a href="particulier.html">Particulier</a></li>
                 <li><a href="zakelijk.html">Zakelijk</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -51,7 +62,19 @@
     <div class="mobile-menu" id="mobile-menu">
         <nav>
             <a href="index.html">Home</a>
-            <a href="diensten.html" class="active">Diensten</a>
+            <div class="mobile-submenu-group">
+                <button class="mobile-submenu-toggle" type="button" aria-expanded="false" aria-controls="mobile-diensten-submenu">
+                    <span>Diensten</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="mobile-submenu" id="mobile-diensten-submenu">
+                    <a href="diensten.html" class="active">Alle diensten</a>
+                    <a href="diensten.html#matrasreiniging">Matrasreiniging</a>
+                    <a href="diensten.html#meubelreiniging">Meubelreiniging</a>
+                    <a href="diensten.html#tapijtreiniging">Tapijtreiniging</a>
+                    <a href="diensten.html#harde-vloeren">Harde vloeren</a>
+                </div>
+            </div>
             <a href="particulier.html">Particulier</a>
             <a href="zakelijk.html">Zakelijk</a>
             <a href="contact.html">Contact</a>
@@ -113,6 +136,50 @@
                         <li>Periodieke reinigingsabonnementen</li>
                     </ul>
                 </div>
+            </div>
+        </div>
+        <div class="comparison-section">
+            <div class="comparison-header">
+                <span class="badge badge-gray comparison-label">Voor en na</span>
+                <h3>Helder verwachtingsbeeld bij matrasreiniging</h3>
+                <p>Onderstaand voorbeeld laat zien welk verschil een professionele behandeling doorgaans maakt. Dit is bewust een neutrale placeholder-opzet totdat definitieve klantbeelden beschikbaar zijn.</p>
+            </div>
+            <div class="comparison-grid">
+                <article class="card comparison-card is-before" aria-label="Situatie voor matrasreiniging">
+                    <div class="comparison-visual" aria-hidden="true">
+                        <div class="comparison-mattress">
+                            <div class="comparison-surface"></div>
+                        </div>
+                    </div>
+                    <div class="comparison-content">
+                        <span class="badge badge-gray comparison-label">Voor</span>
+                        <h3>Dagelijks gebruik laat sporen na</h3>
+                        <p>Een gebruikt matras kan doffer ogen en belast zijn met huisstofmijt, huidschilfers, geurtjes en zichtbare gebruiksvlekken.</p>
+                        <ul class="dot-list">
+                            <li>Oppervlak oogt minder fris</li>
+                            <li>Allergenen en stof hopen zich op in de kern</li>
+                            <li>Plaatselijke verkleuringen of geuren vallen sneller op</li>
+                        </ul>
+                    </div>
+                </article>
+                <article class="card comparison-card is-after" aria-label="Situatie na matrasreiniging">
+                    <div class="comparison-visual" aria-hidden="true">
+                        <div class="comparison-mattress">
+                            <div class="comparison-surface"></div>
+                        </div>
+                    </div>
+                    <div class="comparison-content">
+                        <span class="badge badge-primary comparison-label">Na</span>
+                        <h3>Opgefrist en professioneel behandeld</h3>
+                        <p>Na reiniging oogt het matras verzorgder en wordt de slaapomgeving hygiënischer, frisser en beter onderhouden.</p>
+                        <ul class="dot-list">
+                            <li>Vlek- en geurbehandeling waar mogelijk</li>
+                            <li>Dieptereiniging gericht op stof en allergenen</li>
+                            <li>Representatiever resultaat voor thuis of verhuur</li>
+                        </ul>
+                        <p class="comparison-note">Resultaten verschillen per matrastype, ouderdom en soort vervuiling. Er zijn geen echte klantfoto's gebruikt.</p>
+                    </div>
+                </article>
             </div>
         </div>
     </div>
@@ -199,14 +266,36 @@
                 <div class="card">
                     <h3>Onze vloereinigingsdiensten</h3>
                     <ul class="dot-list">
-                        <li>Tapijt- en karpetreiniging</li>
-                        <li>Harde vloerreiniging (tegels, plavuizen)</li>
+                        <li>Tapijtreiniging en karpetonderhoud</li>
+                        <li>Harde vloerreiniging voor tegels, plavuizen en meer</li>
                         <li>Laminaat- en parketreiniging</li>
                         <li>Voegbehandeling</li>
                         <li>Periodiek vloeronderhoud</li>
                     </ul>
                 </div>
             </div>
+        </div>
+        <div class="service-split-grid comparison-section">
+            <article class="card service-split-card" id="tapijtreiniging">
+                <span class="badge badge-sky comparison-label">Tapijtreiniging</span>
+                <h3>Dieptereiniging voor tapijt, karpetten en vloerkleden</h3>
+                <p>Voor textiele vloeren richten wij ons op vezeldiep vuil, loopsporen, vlekken en geuren. De aanpak wordt afgestemd op poolhoogte, gebruiksintensiteit en droogtijd.</p>
+                <ul class="dot-list">
+                    <li>Geschikt voor woonruimtes, kantoren, hotelkamers en entrees</li>
+                    <li>Gericht op opfrissing van kleur en vezelstructuur</li>
+                    <li>Praktisch advies over droging en nazorg na behandeling</li>
+                </ul>
+            </article>
+            <article class="card service-split-card" id="harde-vloeren">
+                <span class="badge badge-gray comparison-label">Harde vloeren</span>
+                <h3>Professionele reiniging voor tegels, plavuizen, laminaat en parket</h3>
+                <p>Harde vloeren vragen een andere behandeling dan tapijt. Wij werken met passende methodes voor aanslag, voegen, vetresten en dagelijks gebruikssporen zonder onnodige belasting van de vloer.</p>
+                <ul class="dot-list">
+                    <li>Voor woonhuizen, winkels, praktijkruimtes en horeca</li>
+                    <li>Extra aandacht voor voegen, randen en veelbelopen zones</li>
+                    <li>Geschikt voor periodiek onderhoud of een eenmalige opfrisbeurt</li>
+                </ul>
+            </article>
         </div>
     </div>
 </section>
@@ -249,7 +338,8 @@
                 <ul class="footer-links">
                     <li><a href="diensten.html#matrasreiniging">Matrasreiniging</a></li>
                     <li><a href="diensten.html#meubelreiniging">Meubelreiniging</a></li>
-                    <li><a href="diensten.html#vloerreiniging">Vloerreiniging</a></li>
+                    <li><a href="diensten.html#tapijtreiniging">Tapijtreiniging</a></li>
+                    <li><a href="diensten.html#harde-vloeren">Harde vloeren</a></li>
                 </ul>
             </div>
             <div>

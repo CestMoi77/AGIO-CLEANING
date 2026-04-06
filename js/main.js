@@ -105,12 +105,25 @@
     /* 2. HAMBURGER MOBIEL MENU */
     var hamburger = document.getElementById('hamburger');
     var mobileMenu = document.getElementById('mobile-menu');
+    var mobileSubmenuToggle = document.querySelector('.mobile-submenu-toggle');
+    var mobileSubmenu = document.querySelector('.mobile-submenu');
+
+    function closeMobileSubmenu() {
+        if (mobileSubmenuToggle && mobileSubmenu) {
+            mobileSubmenu.classList.remove('open');
+            mobileSubmenuToggle.setAttribute('aria-expanded', 'false');
+        }
+    }
 
     if (hamburger && mobileMenu) {
         hamburger.addEventListener('click', function () {
             var isOpen = mobileMenu.classList.toggle('open');
             hamburger.classList.toggle('open', isOpen);
             hamburger.setAttribute('aria-expanded', isOpen);
+
+            if (!isOpen) {
+                closeMobileSubmenu();
+            }
         });
 
         var mobileLinks = mobileMenu.querySelectorAll('a');
@@ -119,6 +132,7 @@
                 mobileMenu.classList.remove('open');
                 hamburger.classList.remove('open');
                 hamburger.setAttribute('aria-expanded', 'false');
+                closeMobileSubmenu();
             });
         });
 
@@ -127,7 +141,16 @@
                 mobileMenu.classList.remove('open');
                 hamburger.classList.remove('open');
                 hamburger.setAttribute('aria-expanded', 'false');
+                closeMobileSubmenu();
             }
+        });
+    }
+
+    if (mobileSubmenuToggle && mobileSubmenu) {
+        mobileSubmenuToggle.addEventListener('click', function () {
+            var isExpanded = mobileSubmenuToggle.getAttribute('aria-expanded') === 'true';
+            mobileSubmenuToggle.setAttribute('aria-expanded', String(!isExpanded));
+            mobileSubmenu.classList.toggle('open', !isExpanded);
         });
     }
 

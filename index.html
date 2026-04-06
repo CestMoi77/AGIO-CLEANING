@@ -82,7 +82,18 @@
 
             <ul class="nav-links" role="list">
                 <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="diensten.html">Diensten</a></li>
+                <li class="nav-item nav-item-services">
+                    <a href="diensten.html" class="nav-link-with-icon">
+                        Diensten
+                        <svg class="nav-link-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </a>
+                    <ul class="services-submenu" role="list">
+                        <li><a href="diensten.html#matrasreiniging">Matrasreiniging</a></li>
+                        <li><a href="diensten.html#meubelreiniging">Meubelreiniging</a></li>
+                        <li><a href="diensten.html#tapijtreiniging">Tapijtreiniging</a></li>
+                        <li><a href="diensten.html#harde-vloeren">Harde vloeren</a></li>
+                    </ul>
+                </li>
                 <li><a href="particulier.html">Particulier</a></li>
                 <li><a href="zakelijk.html">Zakelijk</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -100,7 +111,19 @@
     <div class="mobile-menu" id="mobile-menu">
         <nav>
             <a href="index.html" class="active">Home</a>
-            <a href="diensten.html">Diensten</a>
+            <div class="mobile-submenu-group">
+                <button class="mobile-submenu-toggle" type="button" aria-expanded="false" aria-controls="mobile-diensten-submenu">
+                    <span>Diensten</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="mobile-submenu" id="mobile-diensten-submenu">
+                    <a href="diensten.html">Alle diensten</a>
+                    <a href="diensten.html#matrasreiniging">Matrasreiniging</a>
+                    <a href="diensten.html#meubelreiniging">Meubelreiniging</a>
+                    <a href="diensten.html#tapijtreiniging">Tapijtreiniging</a>
+                    <a href="diensten.html#harde-vloeren">Harde vloeren</a>
+                </div>
+            </div>
             <a href="particulier.html">Particulier</a>
             <a href="zakelijk.html">Zakelijk</a>
             <a href="contact.html">Contact</a>
@@ -249,8 +272,8 @@
                 <div class="card-icon icon-sky">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
                 </div>
-                <h3>Vloerreiniging</h3>
-                <p>Tapijt, tegels, laminaat of parket — wij maken uw vloer diep schoon. Vlekken, aanslag en vuil verdwijnen zonder de ondergrond te beschadigen.</p>
+                <h3>Tapijt- en harde vloeren</h3>
+                <p>Van tapijtreiniging tot harde vloeren: wij pakken vervuiling gericht aan en kiezen de juiste methode voor textiel, tegels, laminaat of parket.</p>
                 <span class="more-link">Meer informatie
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </span>
@@ -571,7 +594,8 @@
                 <ul class="footer-links">
                     <li><a href="diensten.html#matrasreiniging">Matrasreiniging</a></li>
                     <li><a href="diensten.html#meubelreiniging">Meubelreiniging</a></li>
-                    <li><a href="diensten.html#vloerreiniging">Vloerreiniging</a></li>
+                    <li><a href="diensten.html#tapijtreiniging">Tapijtreiniging</a></li>
+                    <li><a href="diensten.html#harde-vloeren">Harde vloeren</a></li>
                     <li><a href="diensten.html">Alle diensten</a></li>
                 </ul>
                 <!-- AANPASSEN: Pas openingstijden aan -->

@@ -173,7 +173,8 @@ if ($errorCode === '' && !empty($klanttype) && !in_array($klanttype, $toegestane
 $toegestaneDiensten = [
     'Matrasreiniging',
     'Meubelreiniging (bank, stoelen)',
-    'Vloerreiniging (tapijt, tegels)',
+    'Tapijtreiniging',
+    'Harde vloeren',
     'Combinatie van diensten',
     'Periodiek reinigingscontract (zakelijk)',
     'Andere vraag'

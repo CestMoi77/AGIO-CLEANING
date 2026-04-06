@@ -469,6 +469,10 @@ strong { font-weight: 600; color: var(--text); }
     gap: 0.25rem;
 }
 
+.nav-item {
+    position: relative;
+}
+
 .nav-links a {
     display: block;
     padding: 0.5rem 1rem;
@@ -484,6 +488,70 @@ strong { font-weight: 600; color: var(--text); }
 .nav-links a.active {
     color: var(--primary);
     background: var(--primary-50);
+}
+
+.nav-link-with-icon {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.nav-link-caret {
+    transition: transform var(--transition);
+}
+
+.nav-item-services:hover .nav-link-caret,
+.nav-item-services:focus-within .nav-link-caret {
+    transform: rotate(180deg);
+}
+
+.services-submenu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    min-width: 15rem;
+    padding: 0.5rem;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    z-index: 40;
+}
+
+.services-submenu::before {
+    content: '';
+    position: absolute;
+    top: -0.4rem;
+    left: 1.5rem;
+    width: 0.8rem;
+    height: 0.8rem;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+    transform: rotate(45deg);
+}
+
+.nav-item-services:hover .services-submenu,
+.nav-item-services:focus-within .services-submenu {
+    display: block;
+}
+
+.services-submenu a {
+    display: block;
+    padding: 0.75rem 0.9rem;
+    font-size: 0.875rem;
+    color: var(--text);
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+}
+
+.services-submenu a:hover,
+.services-submenu a:focus-visible,
+.services-submenu a.active {
+    background: var(--primary-50);
+    color: var(--primary);
+    outline: none;
 }
 
 /* Hamburger knop */
@@ -561,6 +629,56 @@ strong { font-weight: 600; color: var(--text); }
 .mobile-menu .btn {
     margin-top: 0.5rem;
     justify-content: center;
+}
+
+.mobile-submenu-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.mobile-submenu-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--text);
+    border-radius: var(--radius);
+    transition: var(--transition);
+    text-align: left;
+}
+
+.mobile-submenu-toggle:hover,
+.mobile-submenu-toggle[aria-expanded="true"] {
+    background: var(--primary-50);
+    color: var(--primary);
+}
+
+.mobile-submenu-toggle svg {
+    transition: transform var(--transition);
+}
+
+.mobile-submenu-toggle[aria-expanded="true"] svg {
+    transform: rotate(180deg);
+}
+
+.mobile-submenu {
+    display: none;
+    margin: -0.1rem 0 0.35rem;
+    padding-left: 0.75rem;
+    border-left: 1px solid var(--border);
+}
+
+.mobile-submenu.open {
+    display: block;
+}
+
+.mobile-submenu a {
+    padding: 0.7rem 0.9rem;
+    font-size: 0.875rem;
 }
 
 /* Desktop CTA in nav */
@@ -1297,6 +1415,131 @@ strong { font-weight: 600; color: var(--text); }
 .dienst-info { font-size: 0.9375rem; line-height: 1.8; margin-bottom: 1rem; }
 .dienst-voor { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 2rem; }
 
+.comparison-section {
+    margin-top: 2rem;
+}
+
+.comparison-header {
+    margin-bottom: 1.5rem;
+}
+
+.comparison-header p {
+    max-width: 56rem;
+}
+
+.comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.comparison-card {
+    overflow: hidden;
+    padding: 0;
+}
+
+.comparison-visual {
+    min-height: 14rem;
+    padding: 1.5rem;
+    display: flex;
+    align-items: flex-end;
+    border-bottom: 1px solid var(--border-light);
+    background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
+}
+
+.comparison-card.is-before .comparison-visual {
+    background: linear-gradient(135deg, #f4f4f5 0%, #e4e4e7 100%);
+}
+
+.comparison-card.is-after .comparison-visual {
+    background: linear-gradient(135deg, #eff8ff 0%, #dbeafe 100%);
+}
+
+.comparison-mattress {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    padding: 1.35rem;
+    box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.06);
+}
+
+.comparison-card.is-before .comparison-mattress {
+    background:
+        radial-gradient(circle at 18% 28%, rgba(146, 64, 14, 0.18) 0 1.1rem, transparent 1.15rem),
+        radial-gradient(circle at 76% 58%, rgba(120, 53, 15, 0.14) 0 0.95rem, transparent 1rem),
+        linear-gradient(180deg, #ddd6cf 0%, #d6d3d1 100%);
+}
+
+.comparison-card.is-after .comparison-mattress {
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(248,250,252,0.98) 100%);
+    box-shadow:
+        inset 0 0 0 1px rgba(191, 219, 254, 0.8),
+        0 12px 30px rgba(30, 123, 230, 0.08);
+}
+
+.comparison-surface {
+    min-height: 7rem;
+    border-radius: calc(var(--radius-lg) - 0.2rem);
+    border: 1px solid rgba(255,255,255,0.45);
+}
+
+.comparison-card.is-before .comparison-surface {
+    background:
+        linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.08) 100%),
+        repeating-linear-gradient(
+            90deg,
+            rgba(87, 83, 78, 0.13) 0 0.7rem,
+            rgba(87, 83, 78, 0.05) 0.7rem 1.4rem
+        );
+}
+
+.comparison-card.is-after .comparison-surface {
+    background:
+        linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.7) 100%),
+        repeating-linear-gradient(
+            90deg,
+            rgba(191, 219, 254, 0.35) 0 0.7rem,
+            rgba(255,255,255,0.55) 0.7rem 1.4rem
+        );
+}
+
+.comparison-content {
+    padding: 1.5rem;
+}
+
+.comparison-content h3 {
+    margin-bottom: 0.75rem;
+}
+
+.comparison-label {
+    display: inline-flex;
+    margin-bottom: 0.75rem;
+}
+
+.comparison-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 1rem;
+}
+
+.service-split-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.service-split-card {
+    height: 100%;
+}
+
+.service-split-card p {
+    font-size: 0.9375rem;
+}
+
+.service-split-card .dot-list {
+    margin-top: 1rem;
+}
+
 /* ─── 20. OVER ONS / INLEIDING BLOK ─────────── */
 .intro-grid {
     display: grid;
@@ -1688,6 +1931,8 @@ strong { font-weight: 600; color: var(--text); }
 
     .intro-grid   { grid-template-columns: 1fr 1fr; }
     .dienst-inner { grid-template-columns: 1fr 1fr; }
+    .comparison-grid { grid-template-columns: repeat(2, 1fr); }
+    .service-split-grid { grid-template-columns: repeat(2, 1fr); }
 
     .footer-grid  { grid-template-columns: repeat(4, 1fr); }
     .footer-bottom-inner { flex-direction: row; justify-content: space-between; text-align: left; }
